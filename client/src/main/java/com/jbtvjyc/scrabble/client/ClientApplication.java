@@ -22,8 +22,11 @@ public class ClientApplication {
     @Bean
     public CommandLineRunner client(RestTemplate restTemplateClient) {
         return args -> {
-            Integer valueClient = restTemplateClient.getForObject("http://localhost:8080",Integer.class);
-            System.out.println("client a la valeur lue -> " + valueClient);
+            //TODO VOIR SI LA CLASSE SAPPELLE IDENTIFICATIOH
+            //connexion
+            Identification ident = new Identification("Mopolo le roi des mots", "http://localhost:8081/");
+            Boolean etatConnexion = restTemplateClient.postForObject("http://localhost:8080/connexion/", ident, Boolean.class);
+            System.out.println("etat de la connexion -> " + etatConnexion);
         };
     }
 }
