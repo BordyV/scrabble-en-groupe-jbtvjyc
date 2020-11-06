@@ -50,7 +50,7 @@ public class MotPositionne {
     }
 
     public boolean getHorizontal() {
-        return horizontal;
+        return this.horizontal;
     }
 
     public String toString() {
