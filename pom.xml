@@ -16,12 +16,16 @@
 
 	<modules>
 		<module>server</module>
+		<module>client</module>
+		<module>echangemj</module>
 	</modules>
 
 	<packaging>pom</packaging>
 
 	<properties>
-		<java.version>11</java.version>
+		<compiler.source>1.8</compiler.source><!--version de java (sdk) utilisée pour le dev-->
+		<compiler.target>1.8</compiler.target><!--version de java (sdk) utilisée pour l'utilisateur-->
+		<!-- <java.version>11</java.version>-->
 	</properties>
 
 	<dependencies>
@@ -43,7 +47,7 @@
 		</dependency>
 	</dependencies>
 
-	<build>
+	<!--<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -51,5 +55,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+-->
 </project>
