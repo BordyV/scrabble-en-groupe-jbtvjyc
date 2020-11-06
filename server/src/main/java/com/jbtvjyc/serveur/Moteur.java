@@ -3,8 +3,8 @@ package com.jbtvjyc.serveur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import prg.exemple.demoscrabble.data.MotPositionne;
-import prg.exemple.demoscrabble.data.EtatDuJeu;
+import com.jbtvjyc.scrabble.data.MotPositionne;
+import com.jbtvjyc.scrabble.data.EtatDuJeu;
 
 @Component
 @Scope("singleton")
