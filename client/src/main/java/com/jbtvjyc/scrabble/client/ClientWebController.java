@@ -16,7 +16,7 @@ public class ClientWebController {
     @PostMapping("/jouer")
     public MotPositionne jouer(@RequestBody EtatDuJeu etatDuJeu) {
         System.out.println("Je suis le client et on me demande de jouer !!");
-        return joueur.jouer(etatDuJeu);
+        return client.jouer(etatDuJeu);
     }
 
     @PostMapping("/finir")
