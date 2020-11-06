@@ -10,18 +10,18 @@ import com.jbtvjyc.scrabble.data.EtatDuJeu;
 @Scope("singleton")
 public class Moteur implements Runnable {
     @Autowired
-    Serveur ctrl;
+    MoteurWebControlleur ctrl;
 
     Thread partie ;
 
     EtatDuJeu etatDuJeu;
 
     public void lancerPartie() {
-        if (partie == null) {
+        if (this.partie == null) {
             System.out.println("Moteur > la partie est démarrée");
-            etatDuJeu = new EtatDuJeu();
-            partie = new Thread(this);
-            partie.start();
+            this.etatDuJeu = new EtatDuJeu();
+            this.partie = new Thread(this);
+            this.partie.start();
         } else {
             System.out.println("Moteur > la partie est déjà démarrée");
         }
@@ -30,22 +30,22 @@ public class Moteur implements Runnable {
     @Override
     public void run() {
         for(int nbTour = 0; nbTour < 2; nbTour++) {
-            etatDuJeu.ajouterLettres('a','b','c','d','m','o','t');
-            MotPositionne motJoué = ctrl.demanderAuJoueurDeJoueur(getPlateau()) ;
-            System.out.println("Moteur > "+ctrl.getNomJoueur()+" a joué : "+motJoué+ " (il n'y a pas de vérification)");
-            etatDuJeu.addMotPlacé(motJoué);
+            this.etatDuJeu.ajouterLettres('a','b','c','d','m','o','t');
+            MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJoueur(getPlateau()) ;
+            System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue + " (il n'y a pas de vérification)");
+            this.etatDuJeu.addMotPlace(motJoue);
         }
-        System.out.println("Moteur > la partie est finie "+ etatDuJeu);
-        partie = null;
+        System.out.println("Moteur > la partie est finie "+ this.etatDuJeu);
+        this.partie = null;
 
-        ctrl.envoyerFin();
+        this.ctrl.envoyerFin();
         // fin brutale (pour abréger sur travis).
         System.exit(0);
     }
 
 
     public EtatDuJeu getPlateau() {
-        return etatDuJeu;
+        return this.etatDuJeu;
     }
 
 }
