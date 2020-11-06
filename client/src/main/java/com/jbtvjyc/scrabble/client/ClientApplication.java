@@ -1,5 +1,6 @@
 package com.jbtvjyc.scrabble.client;
 
+import com.jbtvjyc.scrabble.data.Identification;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
