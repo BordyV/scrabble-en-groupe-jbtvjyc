@@ -2,6 +2,8 @@ package com.jbtvjyc.scrabble.client;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import com.jbtvjyc.scrabble.data.MotPositionne;
+import com.jbtvjyc.scrabble.data.EtatDuJeu;
 
 @Component
 @Scope("singleton")
