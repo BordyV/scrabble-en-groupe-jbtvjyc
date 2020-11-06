@@ -25,6 +25,7 @@
 	<properties>
 		<compiler.source>1.8</compiler.source><!--version de java (sdk) utilisée pour le dev-->
 		<compiler.target>1.8</compiler.target><!--version de java (sdk) utilisée pour l'utilisateur-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- éventuellement à changer : encodage de vos fichiers -->
 		<!-- <java.version>11</java.version>-->
 	</properties>
 

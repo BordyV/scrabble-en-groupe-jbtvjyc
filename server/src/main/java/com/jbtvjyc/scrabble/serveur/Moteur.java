@@ -1,4 +1,4 @@
-package com.jbtvjyc.serveur;
+package com.jbtvjyc.scrabble.serveur;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

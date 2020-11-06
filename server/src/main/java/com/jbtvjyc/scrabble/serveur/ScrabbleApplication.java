@@ -1,4 +1,4 @@
-package com.jbtvjyc.serveur;
+package com.jbtvjyc.scrabble.serveur;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

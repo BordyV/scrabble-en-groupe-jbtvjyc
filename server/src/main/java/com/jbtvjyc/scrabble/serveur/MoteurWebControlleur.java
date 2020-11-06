@@ -1,4 +1,4 @@
-package com.jbtvjyc.serveur;
+package com.jbtvjyc.scrabble.serveur;
 
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
 import com.jbtvjyc.scrabble.data.Identification;
