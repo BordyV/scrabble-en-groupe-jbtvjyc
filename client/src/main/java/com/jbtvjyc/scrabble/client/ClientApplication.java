@@ -21,9 +21,8 @@ public class ClientApplication {
     }
 
     @Bean
-    public CommandLineRunner client(RestTemplate restTemplateClient) {
+    public CommandLineRunner unClient(RestTemplate restTemplateClient) {
         return args -> {
-            //TODO VOIR SI LA CLASSE SAPPELLE IDENTIFICATIOH
             //connexion
             Identification ident = new Identification("Mopolo le roi des mots", "http://localhost:8081/");
             Boolean etatConnexion = restTemplateClient.postForObject("http://localhost:8080/connexion/", ident, Boolean.class);

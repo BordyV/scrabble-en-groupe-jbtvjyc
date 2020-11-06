@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 public class ClientWebController {
-    //TODO VOIR CE QUE JOHANNA MET COMME NOM DE CLASSE
+
     @Autowired
     Client client;
 
