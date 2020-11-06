@@ -31,7 +31,7 @@ public class Identification {
     }
 
     public String toString() {
-        return getNom() + "[" + getUrl() + "]";
+        return this.getNom() + "[" + this.getUrl() + "]";
     }
 }
 
