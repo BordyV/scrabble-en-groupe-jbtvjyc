@@ -8,3 +8,10 @@ install:
 
 script:
   - mvn test
+  - cd server
+  - mvn exec:java &
+  - cd ../client
+  - mvn exec:java
+
+script:
+  - mvn test
