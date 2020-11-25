@@ -7,6 +7,17 @@ import java.lang.reflect.Array;
 public class Plateau {
     private Case[][] plateau;
 
+    public Plateau() {
+        
+        for(int x = 0; x < 14; x++)
+        {
+            for(int y = 0; y < 14; y++)
+        {
+            
+        }
+        }
+    }
+
     public Plateau(Case[][] plateau) {
         this.plateau = plateau;
     }
@@ -14,6 +25,7 @@ public class Plateau {
     public void poserMot(MotPositionne motAPoser)
     {
         if(motAPoser.getHorizontal() == true) {
+
         }
         else{
 
