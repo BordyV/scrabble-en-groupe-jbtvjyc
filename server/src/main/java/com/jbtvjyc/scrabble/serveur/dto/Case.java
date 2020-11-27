@@ -1,10 +1,20 @@
 package com.jbtvjyc.scrabble.serveur.dto;
 
 public class Case {
-    private String valeur;
+    private char valeur;
     private Bonus bonus;
 
-    public Case( String valeur, Bonus bonus) {
+    public Case() {
+        this.valeur = Character.MIN_VALUE;
+        this.bonus = Bonus.vide;
+    }
+
+    public Case(Bonus bonus) {
+        this.valeur = Character.MIN_VALUE;
+        this.bonus = bonus;
+    }
+
+    public Case( char valeur, Bonus bonus) {
         this.valeur = valeur;
         this.bonus = bonus;
     }
@@ -13,8 +23,12 @@ public class Case {
         return bonus;
     }
 
-    public String getValeur() {
+    public char getValeur() {
         return valeur;
+    }
+
+    public void setValeur(char valeur) {
+        this.valeur = valeur;
     }
 }
 
