@@ -1,4 +1,9 @@
+package com.jbtvjyc.scrabble.data;
+
+import com.jbtvjyc.scrabble.data.EtatDuJeu;
+import com.jbtvjyc.scrabble.data.MotPositionne;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +22,11 @@ public class EtatDuJeuTest {
         listeDeMotsTest.add(new MotPositionne("vache"));
         listeDeMotsTest.add(new MotPositionne("moto"));
         etatDuJeu.setListeDeMots(listeDeMotsTest);
-        Assertions.asserEquals(expected: listeDeMotsTest, etatDuJeu.getListeDeMots());
+        Assertions.assertEquals(listeDeMotsTest, etatDuJeu.getListeDeMots());
     }
 
     @Test
-    void testGetListeDeMots() {
+    void testGetListeDeMots2() {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
         ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
         ArrayList<Character> chariotTest = new ArrayList<>();
@@ -29,7 +34,7 @@ public class EtatDuJeuTest {
         chariotTest.add(new Character('b'));
         chariotTest.add(new Character('c'));
         etatDuJeu.setChariot(chariotTest);
-        Assertions.asserEquals(expected: chariotTest, etatDuJeu.getChariot());
+        Assertions.assertEquals(chariotTest, etatDuJeu.getChariot());
     }
 
     @Test
@@ -39,11 +44,11 @@ public class EtatDuJeuTest {
         chariotTest.add(new Character('a'));
         chariotTest.add(new Character('b'));
         chariotTest.add(new Character('c'));
-        ch1 = new Character('a');
-        ch2 = new Character('b');
-        ch3 = new Character('c');
-        ajouterLettres(ch1, ch2, ch3);
-        Assertions.asserEquals(expected: chariotTest, etatDuJeu.getChariot());
+        Character ch1 = new Character('a');
+        Character ch2 = new Character('b');
+        Character ch3 = new Character('c');
+        etatDuJeu.ajouterLettres(ch1, ch2, ch3);
+        Assertions.assertEquals(chariotTest, etatDuJeu.getChariot());
     }
 
     @Test
@@ -54,6 +59,6 @@ public class EtatDuJeuTest {
         ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
         listeDeMotsTest.add(motPositionne);
         etatDuJeu.addMotPlace(motPositionne);
-        Assertions.asserEquals(expected: listeDeMotsTest, etatDuJeu.getListeDeMots());
+        Assertions.assertEquals(listeDeMotsTest, etatDuJeu.getListeDeMots());
     }
 }

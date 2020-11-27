@@ -1,6 +1,7 @@
 package com.jbtvjyc.scrabble.data;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,28 +15,28 @@ public class MotPositionneTests {
     void testSetGetMot() {
         MotPositionne motPositionne= new MotPositionne();
         motPositionne.setMot("cheval");
-        Assertions.asserEquals(expected: "cheval", motPositionne.GetMot());
+        Assertions.assertEquals( "cheval", motPositionne.getMot());
     }
 
     @Test
     void testSetGetAbscisse() {
         MotPositionne motPositionne= new MotPositionne();
         motPositionne.setAbscisse(5);
-        Assertions.asserEquals(expected: 5, motPositionne.getAbscisse());
+        Assertions.assertEquals( 5, motPositionne.getAbscisse());
     }
 
     @Test
     void testSetGetOrdonnee() {
         MotPositionne motPositionne= new MotPositionne();
         motPositionne.setOrdonnee(4);
-        Assertions.asserEquals(expected: 4, motPositionne.getOrdonnee());
+        Assertions.assertEquals( 4, motPositionne.getOrdonnee());
     }
 
     @Test
     void testSetGetHorizontal() {
         MotPositionne motPositionne= new MotPositionne();
         motPositionne.setHorizontal(false);
-        Assertions.asserEquals(expected: false, motPositionne.GetHorizontal());
+        Assertions.assertEquals( false, motPositionne.getHorizontal());
     }
 
     @Test
@@ -46,6 +47,6 @@ public class MotPositionneTests {
         if (!motPositionne.getHorizontal()) {
             dir = "vertical";
         }
-        Assertions.asserEquals(expected: "(" + motPositionne.getMot() + "," + motPositionne.getAbscisse() + "," + motPositionne.getOrdonnee() + "," + dir + ")", MotPositionne.toString());
+        Assertions.assertEquals( "(" + motPositionne.getMot() + "," + motPositionne.getAbscisse() + "," + motPositionne.getOrdonnee() + "," + dir + ")", MotPositionne.toString());
     }
 }
