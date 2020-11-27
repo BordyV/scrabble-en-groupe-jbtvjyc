@@ -32,6 +32,11 @@ class InventaireTests {
         lettres.add('e');
         lettres.add('f');
         assertEquals(lettres,invTest.getLettres());
+        assertEquals(0,invTest.score);
+        invTest.score += 500;
+        assertEquals(500,invTest.getScore());
+        invTest.addScore(500);
+        assertEquals(1000,invTest.getScore());
     }
 
 }
