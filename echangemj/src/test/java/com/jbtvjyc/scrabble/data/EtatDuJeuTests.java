@@ -8,7 +8,7 @@ public class EtatDuJeuTest {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
         ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
         ArrayList<Character> chariotTest = new ArrayList<>();
-        listeDeMotsTest.add(new MotPositionne("chamaux"));
+        listeDeMotsTest.add(new MotPositionne("chameaux"));
         listeDeMotsTest.add(new MotPositionne("vache"));
         listeDeMotsTest.add(new MotPositionne("moto"));
         etatDuJeu.setListeDeMots(listeDeMotsTest);

@@ -44,6 +44,6 @@ public class IdentificationTest {
     @Test
     void testToString() {
         Identification identification = new Identification("sonic","https//testurl3");
-        Assertions.asserEquals(expected: identification.getNom() + "[" + identification.getUrl() + "]", identification.toString())
+        Assertions.asserEquals(expected: identification.getNom() + "[" + identification.getUrl() + "]", identification.toString());
     }
 }
