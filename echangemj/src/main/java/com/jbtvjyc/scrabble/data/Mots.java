@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 
@@ -14,16 +15,18 @@ public class Mots {
 
     private String fileName;
     private Hashtable<Character,Integer> associationAlphabetiqueLigne;
+    private ArrayList<String> listeDeMots;
 
 
     public Mots(){
         this.fileName = "mots_francais.txt";
+        this.listeDeMots = new ArrayList<String>();
         this.associationAlphabetiqueLigne = new Hashtable<Character,Integer>();
-        associationAlphabetiqueLigne();
+        generationMots();
     }
 
     //Remplis le tableau qui associe les mots commencant par une lettre a un ligne (exemple: mots commencant par "e" a partir de la ligne 3541)
-    public void associationAlphabetiqueLigne() {
+    public void generationMots() {
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         String line;
         int i = 0;
@@ -35,7 +38,7 @@ public class Mots {
             BufferedReader reader = new BufferedReader(streamReader)) {
 
             while ((line = reader.readLine()) != null) {
-                //System.out.println(line);
+                this.listeDeMots.add(line);
                 if(Character.toLowerCase(line.charAt(0)) == alphabet[i]){
                     this.associationAlphabetiqueLigne.put(alphabet[i], numeroLigne);
                     i++;
@@ -49,10 +52,27 @@ public class Mots {
     }
 
     public boolean verificationExistanceMot(String leMot){
+        char lettreDebut = leMot.charAt(0);
+        int indexDebutRecherche = this.associationAlphabetiqueLigne.get(lettreDebut);
+        int indexFinRecherche = this.associationAlphabetiqueLigne.get(lettreDebut+1);
+        for (int i = indexDebutRecherche; i < indexFinRecherche; i++){
+            if(leMot.equals(this.listeDeMots.get(i))){
+                return true;
+            }
+        }
+
         return false;
     }
 
     public String getFileName() {
         return fileName;
+    }
+
+    public Hashtable<Character, Integer> getAssociationAlphabetiqueLigne() {
+        return associationAlphabetiqueLigne;
+    }
+
+    public ArrayList<String> getListeDeMots() {
+        return listeDeMots;
     }
 }
