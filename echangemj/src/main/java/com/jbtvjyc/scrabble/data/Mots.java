@@ -52,11 +52,11 @@ public class Mots {
     }
 
     public boolean verificationExistanceMot(String leMot){
-        char lettreDebut = leMot.charAt(0);
+        char lettreDebut = Character.toLowerCase(leMot.charAt(0));
         int indexDebutRecherche = this.associationAlphabetiqueLigne.get(lettreDebut);
         int indexFinRecherche = this.associationAlphabetiqueLigne.get(lettreDebut+1);
         for (int i = indexDebutRecherche; i < indexFinRecherche; i++){
-            if(leMot.equals(this.listeDeMots.get(i))){
+            if(leMot.toLowerCase().equals(this.listeDeMots.get(i))){
                 return true;
             }
         }
