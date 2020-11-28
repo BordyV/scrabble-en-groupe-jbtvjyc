@@ -61,4 +61,21 @@ public class EtatDuJeuTests {
         etatDuJeu.addMotPlace(motPositionne);
         Assertions.assertEquals(listeDeMotsTest, etatDuJeu.getListeDeMots());
     }
+
+    @Test
+    void testToString() {
+        EtatDuJeu etatDuJeu = new EtatDuJeu();
+        ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
+        ArrayList<Character> chariotTest = new ArrayList<>();
+        listeDeMotsTest.add(new MotPositionne("chameaux",1,1));
+        listeDeMotsTest.add(new MotPositionne("vache",1,1));
+        listeDeMotsTest.add(new MotPositionne("moto",1,1));
+        chariotTest.add(new Character('a'));
+        chariotTest.add(new Character('b'));
+        chariotTest.add(new Character('c'));
+        etatDuJeu.setListeDeMots(listeDeMotsTest);
+        etatDuJeu.setChariot(chariotTest);
+        String stringTest = "[Plateau](contient " + etatDuJeu.listeDeMots.size() + " mot(s), et les lettres sont " + etatDuJeu.chariot + ")";
+        Assertions.assertEquals(stringTest, etatDuJeu.toString());
+    }
 }
