@@ -11,16 +11,16 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class EtatDuJeuTest {
+public class EtatDuJeuTests {
 
     @Test
     void testGetListeDeMots() {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
         ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
         ArrayList<Character> chariotTest = new ArrayList<>();
-        listeDeMotsTest.add(new MotPositionne("chameaux"));
-        listeDeMotsTest.add(new MotPositionne("vache"));
-        listeDeMotsTest.add(new MotPositionne("moto"));
+        listeDeMotsTest.add(new MotPositionne("chameaux",1,1));
+        listeDeMotsTest.add(new MotPositionne("vache",1,1));
+        listeDeMotsTest.add(new MotPositionne("moto",1,1));
         etatDuJeu.setListeDeMots(listeDeMotsTest);
         Assertions.assertEquals(listeDeMotsTest, etatDuJeu.getListeDeMots());
     }
