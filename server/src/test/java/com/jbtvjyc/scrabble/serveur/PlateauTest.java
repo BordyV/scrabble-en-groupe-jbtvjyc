@@ -48,7 +48,7 @@ public class PlateauTest {
         plateau.poserMot(motAPoserHor);
         //le mot poser est "kaleidoscope" on test donc le debut et la fin
         assertEquals('k', plateau.getCasePlateau(0,0).getValeur());
-        assertEquals('e', plateau.getCasePlateau(11,0).getValeur());
+        assertEquals('e', plateau.getCasePlateau(0,11).getValeur());
     }
 
     @Test
@@ -58,6 +58,6 @@ public class PlateauTest {
         plateau.poserMot(motAPoserVer);
         //le mot poser est "chameau" on test donc le debut et la fin
         assertEquals('c', plateau.getCasePlateau(7,7).getValeur());
-        assertEquals('u', plateau.getCasePlateau(7,13).getValeur());
+        assertEquals('u', plateau.getCasePlateau(13,7).getValeur());
     }
 }

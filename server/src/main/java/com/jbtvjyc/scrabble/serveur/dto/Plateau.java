@@ -98,23 +98,30 @@ public class Plateau {
             for(int i = 0; i < motAPoser.getMot().length(); i++)
             {
                 char lettre = motAPoser.getMot().toCharArray()[i];
-                this.setValeurCasePlateau(lettre,motAPoser.getAbscisse()+i, motAPoser.getOrdonnee());
+                this.setValeurCasePlateau(lettre,motAPoser.getOrdonnee(),motAPoser.getAbscisse()+i);
             }
         }
         else{
             for(int i = 0; i < motAPoser.getMot().length(); i++)
             {
                 char lettre = motAPoser.getMot().toCharArray()[i];
-                this.setValeurCasePlateau(lettre,motAPoser.getAbscisse(), motAPoser.getOrdonnee()+i);
+                this.setValeurCasePlateau(lettre,motAPoser.getOrdonnee()+i, motAPoser.getAbscisse());
             }
         }
     }
 
-    public Case getCasePlateau(int x, int y) {
-        return lePlateau[x][y];
+    public Case getCasePlateau(int y, int x) {
+        return lePlateau[y][x];
     }
-    public void setValeurCasePlateau(char valeur, int x, int y) {
-        lePlateau[x][y].setValeur(valeur);
+
+    /**
+     *
+     * @param valeur
+     * @param x
+     * @param y
+     */
+    public void setValeurCasePlateau(char valeur, int y, int x) {
+        lePlateau[y][x].setValeur(valeur);
     }
 
     public Case[][] getLePlateau() {
@@ -123,5 +130,25 @@ public class Plateau {
 
     public void setLePlateau(Case[][] lePlateau) {
         this.lePlateau= lePlateau;
+    }
+
+    public String toString() {
+
+        String plateauString = "";
+
+        for(int x = 0; x < 14; x++)
+        {
+            plateauString += "[";
+            for(int y = 0; y < 14; y++)
+            {
+                plateauString += this.lePlateau[x][y].getValeur() != Character.MIN_VALUE
+                        ? "|" + this.lePlateau[x][y].getValeur()
+                        :"|" + " ";
+
+            }
+            plateauString += "]\n";
+
+        }
+        return plateauString;
     }
 }
