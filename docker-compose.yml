@@ -4,7 +4,7 @@ services:
 
 
   serveur:
-    image: exempleio:serveur
+    image: jbtvjyc:serveur
     container_name: serveur
     networks:
       testing_net:
@@ -13,7 +13,7 @@ services:
       - client
 
   client:
-    image: exempleio:client
+    image: jbtvjyc:client
     # container_name: client
     environment:
       - SERVER_IP=172.28.0.253
