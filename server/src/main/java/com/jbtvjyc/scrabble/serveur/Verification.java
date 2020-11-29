@@ -40,67 +40,53 @@ public class Verification {
         }
         return positions;
     }
-    public boolean verifMot(){
+    public boolean verifMot () {
         Mots mots = new Mots();
-        if(!mots.verificationExistanceMot(this.mot)){
+        if (!mots.verificationExistanceMot(this.mot)) {
             return false;
         }
         int posX =motPosition.getAbscisse();
         int posY = motPosition.getOrdonnee();
-        if(posX > 14 || posX <0 || posY > 14 || posY < 0){
+        if (posX > 14 || posX <0 || posY > 14 || posY < 0) {
             return false;
         }
         ArrayList<Integer> positions = positionLettres();
-        if(this.lettresjoueur.size()+positions.size() < this.mot.length()){
+        if (this.lettresjoueur.size()+positions.size() < this.mot.length()) {
             return false;
         }
-        if(motPosition.getHorizontal()) {
+        if (motPosition.getHorizontal()) {
             if (posX + this.mot.length() > 14) {
                 return false;
             }
-            for (int i = 0; i < positions.size(); i++) {
-                if (Character.toLowerCase(this.mot.charAt(positions.get(i))) != Character.toLowerCase(plateau.getCasePlateau(posY, posX + positions.get(i)).getValeur())) {
+            for (Integer position : positions) {
+                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCasePlateau(posY, posX + position).getValeur())) {
                     return false;
                 }
-                this.lettresjoueur.add(plateau.getCasePlateau(posY, posX + positions.get(i)).getValeur());
+                this.lettresjoueur.add(plateau.getCasePlateau(posY, posX + position).getValeur());
             }
-            for (int i = 0; i < this.mot.length(); i++) {
-                int cpt = 0;
-                char charMot = Character.toLowerCase(this.mot.charAt(i));
-                for (int j=0;j<this.lettresjoueur.size();j++) {
-                    if (charMot == Character.toLowerCase(this.lettresjoueur.get(j)) && cpt == 0) {
-                        this.lettresjoueur.remove(j);
-                        cpt += 1;
-                    }
-                }
-                if (cpt == 0) {
-                    return false;
-                }
-                cpt = 0;
-            }
-        }
-        else{
-            if(posY+this.mot.length()>14){
+        } else {
+            if(posY + this.mot.length() > 14){
                 return false;
             }
-            for(int i=0;i<positions.size();i++){
-                if(Character.toLowerCase(this.mot.charAt(positions.get(i))) != Character.toLowerCase(plateau.getCasePlateau(posY+positions.get(i),posX).getValeur())){
+            for (Integer position : positions) {
+                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCasePlateau(posY + position, posX).getValeur())) {
                     return false;
                 }
-                this.lettresjoueur.add(plateau.getCasePlateau(posY+positions.get(i),posX).getValeur());
+                this.lettresjoueur.add(plateau.getCasePlateau(posY + position, posX).getValeur());
             }
-            for (int i = 0; i < this.mot.length(); i++) {
-                int cpt = 0;
-                char charMot = Character.toLowerCase(this.mot.charAt(i));
-                for (int j = 0;j < this.lettresjoueur.size() ;j ++) {
-                    if (charMot == Character.toLowerCase(this.lettresjoueur.get(j)) && cpt == 0) {
-                        this.lettresjoueur.remove(j);
-                        cpt += 1;
-                    }
+        }
+        for (int i = 0; i < this.mot.length(); i++) {
+            boolean found = false;
+            char charMot = Character.toLowerCase(this.mot.charAt(i));
+            for (int j = 0;j < this.lettresjoueur.size() ; j++) {
+                if (charMot == Character.toLowerCase(this.lettresjoueur.get(j))) {
+                    this.lettresjoueur.remove(j);
+                    found = true;
+                    break;
                 }
-                if (cpt == 0) {
-                    return false;
-                }
+            }
+            if (!found) {
+                return false;
             }
         }
 
