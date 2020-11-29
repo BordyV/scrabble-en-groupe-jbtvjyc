@@ -59,4 +59,43 @@ public class PlateauTest {
         Assertions.assertEquals('c', plateau.getCase(7,7).getValeur());
         Assertions.assertEquals('u', plateau.getCase(13,7).getValeur());
     }
+
+    /**
+     * test score X et Y
+     */
+    @Test
+    void getScoreCaseXYTest() {
+        Plateau plateau = new Plateau();
+
+        plateau.poserMot(motAPoserVer);
+        int score = plateau.getScoreCaseXY(7,7);
+        //le mot poser est "chameau" on test donc si le score est 3 car c=3
+        Assertions.assertEquals(3, score);
+    }
+
+    /**
+     * test score d'une case
+     */
+    @Test
+    void getScoreCaseTest() {
+        Plateau plateau = new Plateau();
+
+        plateau.poserMot(motAPoserVer);
+        int score = plateau.getScoreCase(plateau.getCase(7,7));
+        //le mot poser est "chameau" on test donc si le score est 3 car c=3
+        Assertions.assertEquals(3, score);
+    }
+
+    /**
+     * test score d'un char
+     */
+    @Test
+    void getScore() {
+        Plateau plateau = new Plateau();
+
+        plateau.poserMot(motAPoserVer);
+        int score = plateau.getScore('b');
+        //le mot poser est "chameau" on test donc si le score est 3 car c=3
+        Assertions.assertEquals(3, score);
+    }
 }

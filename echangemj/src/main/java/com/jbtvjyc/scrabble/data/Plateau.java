@@ -2,6 +2,7 @@ package com.jbtvjyc.scrabble.data;
 
 public class Plateau {
     private Case[][] lePlateau = new Case[15][15];
+    int[] score = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
 
     /**
      * Constructeur du plateau
@@ -123,6 +124,27 @@ public class Plateau {
      */
     public void setValeurCasePlateau(char valeur, int y, int x) {
         lePlateau[y][x].setValeur(valeur);
+    }
+
+    /**
+     * Permet de connaitre le score d'un char donné
+     */
+    public int getScore(char lettre) {
+        return score[Character.toLowerCase(lettre) - 'a'];
+    }
+
+    /**
+     * Permet de connaitre le score d'un char donné
+     */
+    public int getScoreCaseXY(int x ,int y) {
+        return score[Character.toLowerCase(this.getCase(y, x).getValeur()) - 'a'];
+    }
+
+    /**
+     * Permet de connaitre le score d'un char donné
+     */
+    public int getScoreCase(Case laCase) {
+        return score[Character.toLowerCase(laCase.getValeur()) - 'a'];
     }
 
     public Case[][] getLePlateau() {
