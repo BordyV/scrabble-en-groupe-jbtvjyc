@@ -53,10 +53,13 @@ public class Verification {
         if (posX > 14 || posX <0 || posY > 14 || posY < 0) {
             return false;
         }
-        if (posX + this.mot.length() > 14 || posY + this.mot.length() > 14) {
+        if ((motPosition.getHorizontal() && posX + this.mot.length() > 14) || (!motPosition.getHorizontal() && posY + this.mot.length() > 14)) {
             return false;
         }
         ArrayList<Integer> positions = positionLettres();
+        if(this.mot.length() == positions.size()){
+            return false;
+        }
         if (this.lettresjoueur.size()+positions.size() < this.mot.length()) {
             return false;
         }
