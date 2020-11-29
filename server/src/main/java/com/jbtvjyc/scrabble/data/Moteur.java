@@ -1,10 +1,8 @@
-package com.jbtvjyc.scrabble.serveur;
+package com.jbtvjyc.scrabble.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import com.jbtvjyc.scrabble.data.MotPositionne;
-import com.jbtvjyc.scrabble.data.EtatDuJeu;
 
 @Component
 @Scope("singleton")
