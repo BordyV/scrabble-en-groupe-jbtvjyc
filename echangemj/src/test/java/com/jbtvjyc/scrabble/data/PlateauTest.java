@@ -51,7 +51,7 @@ public class PlateauTest {
      * test pour poser un mot en vertical
      */
     @Test
-    void poserMotVer() {
+    void poserMotVerTest() {
         Plateau plateau = new Plateau();
 
         plateau.poserMot(motAPoserVer);
@@ -90,7 +90,7 @@ public class PlateauTest {
      * test score d'un char
      */
     @Test
-    void getScore() {
+    void getScoreTest() {
         Plateau plateau = new Plateau();
 
         plateau.poserMot(motAPoserVer);
