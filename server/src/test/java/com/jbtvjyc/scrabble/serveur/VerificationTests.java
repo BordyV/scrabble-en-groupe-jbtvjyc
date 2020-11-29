@@ -167,5 +167,17 @@ public class VerificationTests {
         assertFalse(verifTest.verifMot());
 
     }
+
+    //Test pour voir si le joueur pose le même mot sur un mot déjà posé sur le palteau
+    @Test
+    void verificationFalseMotDejaExistant() {
+        verifTest.plateau.setValeurCasePlateau('m', 7, 7);
+        verifTest.plateau.setValeurCasePlateau('a', 7, 8);
+        verifTest.plateau.setValeurCasePlateau('n', 7, 9);
+        verifTest.plateau.setValeurCasePlateau('g', 7, 10);
+        verifTest.plateau.setValeurCasePlateau('e', 7, 11);
+        verifTest.plateau.setValeurCasePlateau('r', 7, 12);
+        assertFalse(verifTest.verifMot());
+    }
 }
 
