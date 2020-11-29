@@ -1,5 +1,6 @@
 package com.jbtvjyc.scrabble.serveur;
 import com.jbtvjyc.scrabble.data.MotPositionne;
+import com.jbtvjyc.scrabble.data.Mots;
 import com.jbtvjyc.scrabble.data.Plateau;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ public class VerificationTests {
     void setUp(){
         MotPositionne position = new MotPositionne("manger",7,7,true);
         Plateau plateau = new Plateau();
+        Mots lesMots = new Mots();
         ArrayList<Character> lettres = new ArrayList<>();
         lettres.add('m');
         lettres.add('a');
@@ -23,7 +25,8 @@ public class VerificationTests {
         lettres.add('g');
         lettres.add('e');
         lettres.add('r');
-        this.verifTest = new Verification(lettres,position,plateau);
+        this.verifTest = new Verification(lettres,position,plateau, lesMots);
+
     }
 
     @AfterEach

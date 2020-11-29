@@ -59,7 +59,7 @@ public class Mots {
         if(lettreDebut == 'z'){
             indexFinRecherche = this.listeDeMots.size()-1;
         }else{
-            indexFinRecherche = this.associationAlphabetiqueLigne.get(lettreDebut+1);
+            indexFinRecherche = this.associationAlphabetiqueLigne.get((char)(lettreDebut+1));
         }
         for (int i = indexDebutRecherche; i < indexFinRecherche; i++){
             if(leMot.toLowerCase().equals(this.listeDeMots.get(i))){

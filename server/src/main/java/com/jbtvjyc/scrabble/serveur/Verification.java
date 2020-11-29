@@ -11,13 +11,16 @@ public class Verification {
     ArrayList<Character> lettresjoueur;
     MotPositionne motPosition;
     Plateau plateau;
+    Mots lesMots;
 
 
-    Verification(ArrayList<Character> joueur, MotPositionne positionne,Plateau plateau){
+    Verification(ArrayList<Character> joueur, MotPositionne positionne,Plateau plateau, Mots mots){
         this.lettresjoueur = joueur;
         this.motPosition = positionne;
         this.plateau = plateau;
         this.mot = positionne.getMot();
+        this.lesMots = mots;
+
     }
     public ArrayList<Integer> positionLettres(){
         ArrayList<Integer> positions = new ArrayList<>();
@@ -42,13 +45,15 @@ public class Verification {
         return positions;
     }
     public boolean verifMot () {
-        Mots mots = new Mots();
-        if (!mots.verificationExistanceMot(this.mot)) {
+        if (!this.lesMots.verificationExistanceMot(this.mot)) {
             return false;
         }
-        int posX =motPosition.getAbscisse();
+        int posX = motPosition.getAbscisse();
         int posY = motPosition.getOrdonnee();
         if (posX > 14 || posX <0 || posY > 14 || posY < 0) {
+            return false;
+        }
+        if (posX + this.mot.length() > 14 || posY + this.mot.length() > 14) {
             return false;
         }
         ArrayList<Integer> positions = positionLettres();
@@ -56,9 +61,6 @@ public class Verification {
             return false;
         }
         if (motPosition.getHorizontal()) {
-            if (posX + this.mot.length() > 14) {
-                return false;
-            }
             for (Integer position : positions) {
                 if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCase(posY, posX + position).getValeur())) {
                     return false;
@@ -66,9 +68,6 @@ public class Verification {
                 this.lettresjoueur.add(plateau.getCase(posY, posX + position).getValeur());
             }
         } else {
-            if(posY + this.mot.length() > 14){
-                return false;
-            }
             for (Integer position : positions) {
                 if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCase(posY + position, posX).getValeur())) {
                     return false;
