@@ -34,8 +34,8 @@ public class Mots {
         ClassLoader classLoader = getClass().getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(this.fileName);
-            InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(streamReader)) {
+             InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+             BufferedReader reader = new BufferedReader(streamReader)) {
 
             while ((line = reader.readLine()) != null) {
                 this.listeDeMots.add(line);
