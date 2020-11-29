@@ -60,5 +60,6 @@ public class EtatDuJeu {
 
     public void addMotPlace(MotPositionne motJoue) {
         this.listeDeMots.add(motJoue);
+        this.getPlateau().poserMot(motJoue);
     }
 }
