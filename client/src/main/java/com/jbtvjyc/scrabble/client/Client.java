@@ -42,7 +42,7 @@ public class Client {
                     break;
                 }
                 // We add the score of that letter
-                score += EtatDuJeu.getPlateau().getScore(c);
+                score += etatDuJeu.getPlateau().getScore(c);
             }
 
             if (score > bestScore) {
@@ -67,17 +67,17 @@ public class Client {
             y = (int)Math.floor(Math.random() * (14+1-bestMot.length()));
 
             // Is the first case taken already ?
-            if (EtatDuJeu.getPlateau().getCase(y, x).getValue() != Character.MIN_VALUE && EtatDuJeu.getPlateau().getCase(y, x).getValue() != bestMot.charAt(0)) {
+            if (etatDuJeu.getPlateau().getCase(y, x).getValeur() != Character.MIN_VALUE && etatDuJeu.getPlateau().getCase(y, x).getValeur() != bestMot.charAt(0)) {
                 continue;
             }
             horizontal = true;
             boolean vertical = true;
             // We try to place the words horizontally / vertically and see if it's possible
             for (int i=1; i < bestMot.length(); i++) {
-                if (EtatDuJeu.getPlateau().getCase(y, x + i).getValue() != Character.MIN_VALUE && EtatDuJeu.getPlateau().getCase(y, x + i).getValue() != bestMot.charAt(i)) {
+                if (etatDuJeu.getPlateau().getCase(y, x + i).getValeur() != Character.MIN_VALUE && etatDuJeu.getPlateau().getCase(y, x + i).getValeur() != bestMot.charAt(i)) {
                     horizontal = false;
                 }
-                if (EtatDuJeu.getPlateau().getCase(y + i, x).getValue() != Character.MIN_VALUE && EtatDuJeu.getPlateau().getCase(y, x + i).getValue() != bestMot.charAt(i)) {
+                if (etatDuJeu.getPlateau().getCase(y + i, x).getValeur() != Character.MIN_VALUE && etatDuJeu.getPlateau().getCase(y, x + i).getValeur() != bestMot.charAt(i)) {
                     vertical = false;
                 }
 

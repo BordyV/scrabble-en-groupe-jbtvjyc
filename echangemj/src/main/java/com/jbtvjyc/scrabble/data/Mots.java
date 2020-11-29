@@ -19,7 +19,7 @@ public class Mots {
 
 
     public Mots(){
-        this.fileName = "mots_francais.txt";
+        this.fileName = "mots_francais_pur_utf-8.txt";
         this.listeDeMots = new ArrayList<String>();
         this.associationAlphabetiqueLigne = new Hashtable<Character,Integer>();
         generationMots();
@@ -27,7 +27,8 @@ public class Mots {
 
     //Remplis le tableau qui associe les mots commencant par une lettre a un ligne (exemple: mots commencant par "e" a partir de la ligne 3541)
     public void generationMots() {
-        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        // Le - à la fin permet d'éviter le out of bound dans le while juste en bas (aucun mot ne contient de -, donc il ne sera pas utilisé
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
         String line;
         int i = 0;
         int numeroLigne = 0;
