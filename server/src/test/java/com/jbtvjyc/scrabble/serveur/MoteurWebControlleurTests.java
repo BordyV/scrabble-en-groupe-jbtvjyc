@@ -2,7 +2,7 @@ package com.jbtvjyc.scrabble.serveur;
 
 import com.jbtvjyc.scrabble.data.Identification;
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
-import com.jbtvjyc.scrabble.serveur.MoteurWebControlleur;
+import com.jbtvjyc.scrabble.data.MoteurWebControlleur;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
