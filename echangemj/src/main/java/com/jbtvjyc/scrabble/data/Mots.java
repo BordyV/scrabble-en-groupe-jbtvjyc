@@ -54,7 +54,12 @@ public class Mots {
     public boolean verificationExistanceMot(String leMot){
         char lettreDebut = Character.toLowerCase(leMot.charAt(0));
         int indexDebutRecherche = this.associationAlphabetiqueLigne.get(lettreDebut);
-        int indexFinRecherche = this.associationAlphabetiqueLigne.get(lettreDebut+1);
+        int indexFinRecherche;
+        if(lettreDebut == 'z'){
+            indexFinRecherche = this.listeDeMots.size()-1;
+        }else{
+            indexFinRecherche = this.associationAlphabetiqueLigne.get(lettreDebut+1);
+        }
         for (int i = indexDebutRecherche; i < indexFinRecherche; i++){
             if(leMot.toLowerCase().equals(this.listeDeMots.get(i))){
                 return true;
