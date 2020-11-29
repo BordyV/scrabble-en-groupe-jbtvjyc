@@ -2,6 +2,7 @@ package com.jbtvjyc.scrabble.serveur;
 
 import com.jbtvjyc.scrabble.data.MotPositionne;
 import com.jbtvjyc.scrabble.data.Mots;
+import com.jbtvjyc.scrabble.data.Plateau;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class Verification {
         if(motPosition.getHorizontal()) {
             for(int i = 0; i < motPosition.getMot().length(); i++)
             {
-                if(plateau.getCasePlateau(posY,posX+i).getValeur() != Character.MIN_VALUE){
+                if(plateau.getCase(posY,posX+i).getValeur() != Character.MIN_VALUE){
                     positions.add(i);
                 }
             }
@@ -33,7 +34,7 @@ public class Verification {
         else{
             for(int i = 0; i < motPosition.getMot().length(); i++)
             {
-                if(plateau.getCasePlateau(posY+i,posX).getValeur() != Character.MIN_VALUE){
+                if(plateau.getCase(posY+i,posX).getValeur() != Character.MIN_VALUE){
                     positions.add(i);
                 }
             }
@@ -59,20 +60,20 @@ public class Verification {
                 return false;
             }
             for (Integer position : positions) {
-                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCasePlateau(posY, posX + position).getValeur())) {
+                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCase(posY, posX + position).getValeur())) {
                     return false;
                 }
-                this.lettresjoueur.add(plateau.getCasePlateau(posY, posX + position).getValeur());
+                this.lettresjoueur.add(plateau.getCase(posY, posX + position).getValeur());
             }
         } else {
             if(posY + this.mot.length() > 14){
                 return false;
             }
             for (Integer position : positions) {
-                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCasePlateau(posY + position, posX).getValeur())) {
+                if (Character.toLowerCase(this.mot.charAt(position)) != Character.toLowerCase(plateau.getCase(posY + position, posX).getValeur())) {
                     return false;
                 }
-                this.lettresjoueur.add(plateau.getCasePlateau(posY + position, posX).getValeur());
+                this.lettresjoueur.add(plateau.getCase(posY + position, posX).getValeur());
             }
         }
         for (int i = 0; i < this.mot.length(); i++) {
