@@ -32,7 +32,7 @@ public class Moteur implements Runnable {
 
     @Override
     public void run() {
-        for(int nbTour = 0; nbTour < 2; nbTour++) {
+        for(int nbTour = 0; nbTour < 40; nbTour++) {
             this.etatDuJeu.setChariot(new ArrayList<Character>());
             this.etatDuJeu.ajouterLettres('a','b','a','i','s','s','e');
             MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
@@ -47,6 +47,7 @@ public class Moteur implements Runnable {
                 System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas pu jouer car son mot n'est pas posable ou possible ");
             }
         }
+        System.out.println(this.etatDuJeu.getPlateau());
         System.out.println("Moteur > la partie est finie "+ this.etatDuJeu);
         this.partie = null;
 
