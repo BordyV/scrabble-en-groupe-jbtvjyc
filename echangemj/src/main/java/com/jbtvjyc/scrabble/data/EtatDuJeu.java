@@ -12,6 +12,7 @@ public class EtatDuJeu {
     public EtatDuJeu() {
         this.listeDeMots = new ArrayList<>();
         this.chariot = new ArrayList<>();
+        this.plateau = new Plateau();
     }
 
     public EtatDuJeu(Plateau plateau) {
@@ -39,6 +40,11 @@ public class EtatDuJeu {
     public void ajouterLettres(Character... lettres) {
         this.chariot.addAll(Arrays.asList(lettres));
     }
+
+    //TODO A FAIRE PROCHAIN SPRING POUR JB
+    //public void enleverLettres(Character... lettres) {
+    //    this.chariot.removeAll(Arrays.asList(lettres));
+    //}
 
     public Plateau getPlateau() {
         return this.plateau;

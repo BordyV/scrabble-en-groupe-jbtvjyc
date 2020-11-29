@@ -1,5 +1,6 @@
 package com.jbtvjyc.scrabble.client;
 
+import com.jbtvjyc.scrabble.data.Mots;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.jbtvjyc.scrabble.data.MotPositionne;
@@ -10,10 +11,18 @@ import java.util.ArrayList;
 @Component
 @Scope("singleton")
 public class Client {
+    Mots lesMots;
+
+    public Client() {
+        this.lesMots = new Mots();
+    }
 
     public MotPositionne jouer(EtatDuJeu etatDuJeu) {
-        System.out.println("Joueur > je joue mot au milieu");
-        return new MotPositionne("mot", 7, 7);
+        MotPositionne motTrouver = this.trouverMot(etatDuJeu, this.lesMots.getListeDeMots());
+        System.out.println("Joueur > je joue en " + motTrouver.getAbscisse() + " , " + motTrouver.getOrdonnee() +
+                " le mot " + motTrouver.getMot() + " de facon " + (motTrouver.getHorizontal() ? "horizontal" : "vertical"));
+
+        return motTrouver;
     }
 
     public MotPositionne trouverMot(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots) {

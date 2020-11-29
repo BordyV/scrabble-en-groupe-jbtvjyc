@@ -21,7 +21,6 @@ class ClientTest {
     void setup() {
         this.etatDuJeu = new EtatDuJeu(new Plateau());
         this.mots = new Mots();
-        this.mots.generationMots();
         this.client = new Client();
     }
 

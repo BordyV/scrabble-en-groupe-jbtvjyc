@@ -36,7 +36,7 @@ public class MoteurWebControlleur {
         return true;
     }
 
-    public MotPositionne demanderAuJoueurDeJoueur(EtatDuJeu p) {
+    public MotPositionne demanderAuJoueurDeJouer(EtatDuJeu p) {
         MotPositionne resultat = new MotPositionne();
         if (this.joueurId != null) {
             resultat = this.restTemplate.postForObject(this.joueurId.getUrl() + "/jouer", p, MotPositionne.class);

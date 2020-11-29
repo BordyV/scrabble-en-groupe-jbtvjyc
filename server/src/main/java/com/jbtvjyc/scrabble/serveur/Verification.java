@@ -14,7 +14,7 @@ public class Verification {
     Mots lesMots;
 
 
-    Verification(ArrayList<Character> joueur, MotPositionne positionne,Plateau plateau, Mots mots){
+    public Verification(ArrayList<Character> joueur, MotPositionne positionne,Plateau plateau, Mots mots){
         this.lettresjoueur = joueur;
         this.motPosition = positionne;
         this.plateau = plateau;
