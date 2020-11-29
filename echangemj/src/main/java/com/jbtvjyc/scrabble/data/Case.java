@@ -1,4 +1,4 @@
-package com.jbtvjyc.scrabble.serveur.dto;
+package com.jbtvjyc.scrabble.data;
 
 public class Case {
     private char valeur;

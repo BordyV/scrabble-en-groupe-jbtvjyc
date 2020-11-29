@@ -1,4 +1,4 @@
-package com.jbtvjyc.scrabble.serveur.dto;
+package com.jbtvjyc.scrabble.data;
 
 public enum Bonus {
     MotTriple,

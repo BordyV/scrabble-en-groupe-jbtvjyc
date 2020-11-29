@@ -1,12 +1,11 @@
-package com.jbtvjyc.scrabble.serveur.dto;
-
-import com.jbtvjyc.scrabble.data.MotPositionne;
-
-import java.lang.reflect.Array;
+package com.jbtvjyc.scrabble.data;
 
 public class Plateau {
     private Case[][] lePlateau = new Case[15][15];
 
+    /**
+     * Constructeur du plateau
+     */
     public Plateau() {
 
         for(int x = 0; x < 14; x++)
@@ -94,6 +93,7 @@ public class Plateau {
 
     public void poserMot(MotPositionne motAPoser)
     {
+        //si le mot est horizontal
         if(motAPoser.getHorizontal() == true) {
             for(int i = 0; i < motAPoser.getMot().length(); i++)
             {
@@ -101,6 +101,7 @@ public class Plateau {
                 this.setValeurCasePlateau(lettre,motAPoser.getOrdonnee(),motAPoser.getAbscisse()+i);
             }
         }
+        //si le mot est vertical
         else{
             for(int i = 0; i < motAPoser.getMot().length(); i++)
             {
@@ -110,15 +111,15 @@ public class Plateau {
         }
     }
 
-    public Case getCasePlateau(int y, int x) {
+    public Case getCase(int y, int x) {
         return lePlateau[y][x];
     }
 
     /**
-     *
+     * Set la valeur d'une case du plateau
      * @param valeur
-     * @param x
      * @param y
+     * @param x
      */
     public void setValeurCasePlateau(char valeur, int y, int x) {
         lePlateau[y][x].setValeur(valeur);

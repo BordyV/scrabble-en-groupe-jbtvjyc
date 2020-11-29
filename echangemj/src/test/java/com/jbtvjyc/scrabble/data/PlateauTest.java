@@ -1,12 +1,8 @@
-package com.jbtvjyc.scrabble.serveur;
+package com.jbtvjyc.scrabble.data;
 
-import com.jbtvjyc.scrabble.data.MotPositionne;
-import com.jbtvjyc.scrabble.serveur.dto.Bonus;
-import com.jbtvjyc.scrabble.serveur.dto.Case;
-import com.jbtvjyc.scrabble.serveur.dto.Plateau;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,16 +25,16 @@ public class PlateauTest {
     void creationPlateauTest() {
         Plateau plateau = new Plateau();
 
-        assertEquals(plateau.getLePlateau().length, 15);
+        Assertions.assertEquals(plateau.getLePlateau().length, 15);
     }
 
     @Test
     void getCaseTest() {
         Plateau plateau = new Plateau();
 
-        assertEquals(plateau.getCasePlateau(0,0).getBonus(), laCase.getBonus());
-        assertEquals(plateau.getCasePlateau(14,14).getBonus(), laCase.getBonus());
-        assertEquals(plateau.getCasePlateau(7,7).getBonus(), laCaseMD.getBonus());
+        Assertions.assertEquals(plateau.getCase(0,0).getBonus(), laCase.getBonus());
+        Assertions.assertEquals(plateau.getCase(14,14).getBonus(), laCase.getBonus());
+        Assertions.assertEquals(plateau.getCase(7,7).getBonus(), laCaseMD.getBonus());
     }
 
     @Test
@@ -47,17 +43,20 @@ public class PlateauTest {
 
         plateau.poserMot(motAPoserHor);
         //le mot poser est "kaleidoscope" on test donc le debut et la fin
-        assertEquals('k', plateau.getCasePlateau(0,0).getValeur());
-        assertEquals('e', plateau.getCasePlateau(0,11).getValeur());
+        Assertions.assertEquals('k', plateau.getCase(0,0).getValeur());
+        Assertions.assertEquals('e', plateau.getCase(0,11).getValeur());
     }
 
+    /**
+     * test pour poser un mot en vertical
+     */
     @Test
     void poserMotVer() {
         Plateau plateau = new Plateau();
 
         plateau.poserMot(motAPoserVer);
         //le mot poser est "chameau" on test donc le debut et la fin
-        assertEquals('c', plateau.getCasePlateau(7,7).getValeur());
-        assertEquals('u', plateau.getCasePlateau(13,7).getValeur());
+        Assertions.assertEquals('c', plateau.getCase(7,7).getValeur());
+        Assertions.assertEquals('u', plateau.getCase(13,7).getValeur());
     }
 }

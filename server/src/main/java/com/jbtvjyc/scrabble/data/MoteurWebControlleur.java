@@ -1,8 +1,5 @@
-package com.jbtvjyc.scrabble.serveur;
+package com.jbtvjyc.scrabble.data;
 
-import com.jbtvjyc.scrabble.data.EtatDuJeu;
-import com.jbtvjyc.scrabble.data.Identification;
-import com.jbtvjyc.scrabble.data.MotPositionne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
