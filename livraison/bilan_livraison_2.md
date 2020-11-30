@@ -18,7 +18,8 @@ Même si toutes ces fonctionnalités sont implantées certaines ne sont pas tota
 
 ce qui manque pour l'iteration: 
 
-- Docker
+- Docker, nous nous y sommes pris trop tard et malgré le suivi des vidéos tutoriels nous avons eu des erreurs, mais il était alors trop tard pour poser des questions vis à vis de ces erreurs.
+Nous comptons réparer cela dans la prochaine itération et rattraper le retard de cette problématique.
 - Tests d'intégrations
 
 En conclusion, cette itération se finalise bien même si l'on peut mieux faire, le manque de motivation de certaines personnes n'est pas de mise et devra être renforcé à la prochaine itération de part un meilleur travail de groupe. 
