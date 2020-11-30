@@ -3,15 +3,30 @@ language: java
 jdk:
   - openjdk11
 
+services:
+  - docker
+
 install:
   - mvn clean install -DskipTests
 
-script:
-  - mvn test
-  - cd server
-  - mvn exec:java &
-  - cd ../client
-  - mvn exec:java
+before_script:
+  - docker ps -a -q
+  - docker build serveur -t exempleio:serveur
+  - docker build client -t exempleio:client
+  - docker images
 
 script:
+  #- mvn test
+  #- cd server
+  #- mvn exec:java &
+  #- cd ../client
+  #- mvn exec:java
   - mvn test
+  - docker-compose up --scale client=3
+  - docker rm $(docker ps -a -q)
+  - docker ps -a -q
+  - docker rmi exempleio:serveur
+  - docker rmi exempleio:client
+
+#script:
+ # - mvn test

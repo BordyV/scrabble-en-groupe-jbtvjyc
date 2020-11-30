@@ -7,18 +7,18 @@
     <parent>
         <groupId>com.jbtvjyc</groupId>
         <artifactId>scrabble</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
     <groupId>com.jbtvjyc</groupId>
     <artifactId>server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <dependencies>
         <dependency>
             <groupId>com.jbtvjyc</groupId>
             <artifactId>echangemj</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
          
@@ -44,7 +44,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.jbtvjyc.scrabble.serveur.ScrabbleApplication</mainClass>  <!-- à changer : classe avec point d'entrée pour votre projet -->
+                    <mainClass>com.jbtvjyc.scrabble.data.ScrabbleApplication</mainClass>  <!-- à changer : classe avec point d'entrée pour votre projet -->
                     <!-- argument de la commande java (en plus du nom de la classe et du classpath -->
 
                     <!-- arguments récupérés dans le main -->
