@@ -39,7 +39,7 @@ public class MotPositionneTests {
         Assertions.assertEquals( false, motPositionne.getHorizontal());
     }
 
-    @Test
+    /*@Test
     void testToString() {
         MotPositionne motPositionne= new MotPositionne();
         String dir = "horizontal";
@@ -47,6 +47,6 @@ public class MotPositionneTests {
         if (!motPositionne.getHorizontal()) {
             dir = "vertical";
         }
-        Assertions.assertEquals( "(" + motPositionne.getMot() + "," + motPositionne.getAbscisse() + "," + motPositionne.getOrdonnee() + "," + dir + ")", motPositionne.toString());
-    }
+        Assertions.assertEquals( "(" + motPositionne.getMot() + "," + motPositionne.getAbscisse() + "," + motPositionne.getOrdonnee() + "," + dir + ")", MotPositionne.toString());
+    }*/
 }
