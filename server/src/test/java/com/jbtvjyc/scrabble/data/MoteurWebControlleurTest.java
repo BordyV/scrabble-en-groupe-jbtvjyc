@@ -1,8 +1,18 @@
-/*import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockto.times;
-import static org.mockito.Mockto.verify;
+package com.jbtvjyc.scrabble.data;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.concurrent.TimeUnit;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -33,7 +43,7 @@ public class MoteurWebControlleurTest {
         webControlleur.getValue(id);
 
         try {
-            TimeUnit.MILISECONDS.sleep(2000);
+            TimeUnit.MILLISECONDS.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -41,5 +51,3 @@ public class MoteurWebControlleurTest {
         verify(mSpy, times(1)).lancerPartie();
     }
 }
-
- */
