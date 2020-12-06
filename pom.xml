@@ -18,7 +18,8 @@
 		<module>server</module>
 		<module>client</module>
 		<module>echangemj</module>
-	</modules>
+        <module>devtools</module>
+    </modules>
 
 	<packaging>pom</packaging>
 
@@ -26,6 +27,7 @@
 		<compiler.source>1.8</compiler.source><!--version de java (sdk) utilisée pour le dev-->
 		<compiler.target>1.8</compiler.target><!--version de java (sdk) utilisée pour l'utilisateur-->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- éventuellement à changer : encodage de vos fichiers -->
+		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/devtools/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<!-- <java.version>11</java.version>-->
 	</properties>
 
@@ -48,13 +50,35 @@
 		</dependency>
 	</dependencies>
 
-	<!--<build>
+	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>report-aggregate</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
--->
+
 </project>
