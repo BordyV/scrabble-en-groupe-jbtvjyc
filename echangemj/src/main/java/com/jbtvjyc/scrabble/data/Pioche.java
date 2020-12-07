@@ -12,7 +12,7 @@ public class Pioche {
     public Pioche() {
         this.tailleDuSac = 102;
         this.sac = new ArrayList<>();
-        for (int i = 0; i< 25; i++){
+        for (int i=0; i<25; i++){
             this.sac.add(1);
         }
         this.setQuantiteDeLettreInitial();
@@ -73,7 +73,13 @@ public class Pioche {
         this.sac.set(25,1);
     }
 
-    public char piocherUneLettre(EtatDuJeu etatDuJeu) {
+    public void piocherPlusieursLettres(EtatDuJeu etatDuJeu, int ndDeLettres) {
+        for (int i = etatDuJeu.getChariot().size()-1; i < etatDuJeu.getChariot().size()-1+ndDeLettres; i++){
+            etatDuJeu.getChariot().add(i, piocherUneLettre());
+        }
+    }
+
+    public char piocherUneLettre() {
         int index;
         char lettreTrouvee;
         do {
@@ -81,7 +87,7 @@ public class Pioche {
             index = random.nextInt(25);
             lettreTrouvee = alphabet[index];
 
-        } while (this.testEtLettreVide(index));
+        } while (this.testLettreVide(index));
         int newVal = this.sac.get(index)-1;
         this.sac.set(index, newVal);
         this.tailleDuSac--;
@@ -91,7 +97,7 @@ public class Pioche {
         return lettreTrouvee;
     }
 
-    public boolean testEtLettreVide(int index) {
+    public boolean testLettreVide(int index) {
         return this.sac.get(index) == 0;
     }
 }
