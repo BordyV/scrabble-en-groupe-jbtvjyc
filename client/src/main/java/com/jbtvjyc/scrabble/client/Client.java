@@ -66,7 +66,7 @@ public class Client {
         }
 
         // We try to find a position for the word
-        int x = 7, y = 7;
+        int x, y;
         boolean posable = false;
         boolean horizontal = true;
         int nbTries = 0;

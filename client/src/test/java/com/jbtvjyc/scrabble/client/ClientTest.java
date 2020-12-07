@@ -26,7 +26,7 @@ class ClientTest {
 
     @Test
     void trouverMotTest() {
-        ArrayList<Character> chariot = new ArrayList<Character>();
+        ArrayList<Character> chariot = new ArrayList<>();
         chariot.add('a');
         chariot.add('b');
         chariot.add('a');
