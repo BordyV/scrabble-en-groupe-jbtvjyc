@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Pioche {
-    char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
-    ArrayList<Integer> sac;
-    int tailleDuSac;
-    boolean sacVide = false;
+    private char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
+    private ArrayList<Integer> sac;
+    private int TAILLE_DU_SAC_PAR_DEFAUT = 102;
+    private int tailleDuSac;
+    private boolean sacVide = false;
 
     public Pioche() {
-        this.tailleDuSac = 102;
+        this.tailleDuSac = TAILLE_DU_SAC_PAR_DEFAUT;
+        this.sac = new ArrayList<>();
+        for (int i=0; i<25; i++){
+            this.sac.add(1);
+        }
+        this.setQuantiteDeLettreInitial();
+    }
+
+    public Pioche(int taille) {
+        this.tailleDuSac = taille;
         this.sac = new ArrayList<>();
         for (int i=0; i<25; i++){
             this.sac.add(1);
@@ -86,18 +96,26 @@ public class Pioche {
             Random random = new Random();
             index = random.nextInt(25);
             lettreTrouvee = alphabet[index];
-
-        } while (this.testLettreVide(index));
+        } while (this.LettreVide(index));
         int newVal = this.sac.get(index)-1;
         this.sac.set(index, newVal);
         this.tailleDuSac--;
         if (this.tailleDuSac == 0) {
-            this.sacVide = true;
+            this.setSacVide();
         }
+        System.out.println("Vous avez pioché un "+ lettreTrouvee + ".");
         return lettreTrouvee;
     }
 
-    public boolean testLettreVide(int index) {
+    public boolean LettreVide(int index) {
         return this.sac.get(index) == 0;
+    }
+
+    public boolean getSacVide() {
+        return this.sacVide;
+    }
+
+    public void setSacVide() {
+        this.sacVide = true;
     }
 }
