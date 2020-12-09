@@ -6,14 +6,14 @@ import java.util.Random;
 public class Pioche {
     private char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
     private ArrayList<Integer> sac;
-    private int TAILLE_DU_SAC_PAR_DEFAUT = 102;
+    private int TAILLE_DU_SAC_PAR_DEFAUT = 100;
     private int tailleDuSac;
     private boolean sacVide = false;
 
     public Pioche() {
         this.tailleDuSac = TAILLE_DU_SAC_PAR_DEFAUT;
         this.sac = new ArrayList<>();
-        for (int i=0; i<25; i++){
+        for (int i=0; i<26; i++){
             this.sac.add(1);
         }
         this.setQuantiteDeLettreInitial();
@@ -22,12 +22,15 @@ public class Pioche {
     public Pioche(int taille) {
         this.tailleDuSac = taille;
         this.sac = new ArrayList<>();
-        for (int i=0; i<25; i++){
+        for (int i=0; i<26; i++){
             this.sac.add(1);
         }
         this.setQuantiteDeLettreInitial();
     }
 
+    /**
+     * attention ici c'est adapte pour un sac de 102 pieces
+     */
     public void setQuantiteDeLettreInitial(){
         //a
         this.sac.set(0,9);
@@ -84,26 +87,35 @@ public class Pioche {
     }
 
     public void piocherPlusieursLettres(EtatDuJeu etatDuJeu, int ndDeLettres) {
-        for (int i = etatDuJeu.getChariot().size()-1; i < etatDuJeu.getChariot().size()-1+ndDeLettres; i++){
+        int tailleInitialDuChario = etatDuJeu.getChariot().size();
+        for (int i = tailleInitialDuChario; i < tailleInitialDuChario+ndDeLettres; i++){
             etatDuJeu.getChariot().add(i, piocherUneLettre());
+            //System.out.println("taille du chario : "+etatDuJeu.getChariot().size());
+            //System.out.println("dans la bloucle");
         }
+        //System.out.println("bloucle passe");
     }
 
     public char piocherUneLettre() {
         int index;
         char lettreTrouvee;
+        //System.out.println("bloucle pas passe");
         do {
             Random random = new Random();
-            index = random.nextInt(25);
+            index = random.nextInt(26);
             lettreTrouvee = alphabet[index];
         } while (this.LettreVide(index));
+        //System.out.println("bloucle passe");
         int newVal = this.sac.get(index)-1;
+        System.out.println();
         this.sac.set(index, newVal);
-        this.tailleDuSac--;
+        this.setTailleDuSac(this.getTailleDuSac()-1);
+        System.out.println("Vous avez pioché un "+ lettreTrouvee + ", il en reste " + newVal +".");
+        System.out.println("Pieces restantes : " + this.getTailleDuSac());
         if (this.tailleDuSac == 0) {
             this.setSacVide();
+            System.out.println("Le sac est vide.");
         }
-        System.out.println("Vous avez pioché un "+ lettreTrouvee + ".");
         return lettreTrouvee;
     }
 
@@ -117,5 +129,17 @@ public class Pioche {
 
     public void setSacVide() {
         this.sacVide = true;
+    }
+
+    public int getTailleDuSac(){
+        return this.tailleDuSac;
+    }
+
+    public void setTailleDuSac(int t) {
+        this.tailleDuSac = t;
+    }
+
+    public ArrayList<Integer> getSac() {
+        return this.sac;
     }
 }
