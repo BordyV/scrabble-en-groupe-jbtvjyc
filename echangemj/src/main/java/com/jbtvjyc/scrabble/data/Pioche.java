@@ -7,6 +7,7 @@ public class Pioche {
     private char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
     private ArrayList<Integer> sac;
     private int TAILLE_DU_SAC_PAR_DEFAUT = 100;
+    //ajout des deux pieces "joker", 102 pieces
     private int tailleDuSac;
     private boolean sacVide = false;
 
