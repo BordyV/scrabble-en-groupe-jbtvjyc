@@ -19,7 +19,8 @@ public class MoteurTests {
 
     }
     @Test
-    void teosto(){
-        assertEquals("tes", "tes");
+    void partieLancer(){
+        String test = "tes";
+        assertEquals("tes", test);
     }
 }
