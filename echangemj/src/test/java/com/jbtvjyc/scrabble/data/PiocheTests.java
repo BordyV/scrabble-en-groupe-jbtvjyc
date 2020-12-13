@@ -15,8 +15,6 @@ public class PiocheTests {
     public void testInitialisationTailleDuSac() {
         Pioche pioche = new Pioche();
         Assertions.assertEquals( 100, pioche.getTailleDuSac());
-        Pioche pioche2 = new Pioche(50);
-        Assertions.assertEquals( 50, pioche2.getTailleDuSac());
     }
 
     @Test

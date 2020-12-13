@@ -20,15 +20,6 @@ public class Pioche {
         this.setQuantiteDeLettreInitial();
     }
 
-    public Pioche(int taille) {
-        this.tailleDuSac = taille;
-        this.sac = new ArrayList<>();
-        for (int i=0; i<26; i++){
-            this.sac.add(1);
-        }
-        this.setQuantiteDeLettreInitial();
-    }
-
     /**
      * attention ici c'est adapte pour un sac de 102 pieces
      */
