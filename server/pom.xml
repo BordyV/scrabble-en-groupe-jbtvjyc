@@ -10,11 +10,6 @@
         <version>0.0.1</version>
     </parent>
 
-    <properties>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../devtools/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-    </properties>
-
-    <groupId>com.jbtvjyc</groupId>
     <artifactId>server</artifactId>
     <version>0.0.1</version>
 
@@ -25,10 +20,15 @@
             <version>0.0.1</version>
         </dependency>
     </dependencies>
-         
-         
+
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -52,11 +52,10 @@
                     <!-- argument de la commande java (en plus du nom de la classe et du classpath -->
 
                     <!-- arguments récupérés dans le main -->
-                    <!--
-                        <arguments>
-                                <argument>argument1</argument>
-                        </arguments>
-                    -->
+                    <!-- Argument pour terminer le process en cas de goal java -->
+                    <arguments>
+                            <argument>argument1</argument>
+                    </arguments>
 
                     <!-- arguments de configuration système -->
                     <!--

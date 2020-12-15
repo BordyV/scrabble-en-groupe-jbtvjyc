@@ -3,30 +3,25 @@ language: java
 jdk:
   - openjdk11
 
+cache:
+  directories:
+    - $HOME/.m2
+
 services:
   - docker
 
 install:
   - mvn clean install -DskipTests
 
-before_script:
-  - docker ps -a -q
-  - docker build server -t jbtvjyc:server
-  - docker build client -t jbtvjyc:client
-  - docker images
-
 script:
-  #- mvn test
-  #- cd server
-  #- mvn exec:java &
-  #- cd ../client
-  #- mvn exec:java
   - mvn test
-  - docker-compose up --scale client=3
   - docker rm $(docker ps -a -q)
-  - docker ps -a -q
-  - docker rmi jbtvjyc:server
-  - docker rmi jbtvjyc:client
-
-#script:
- # - mvn test
+  - docker build client -t jbtvjyc:client
+  - cd server
+  - docker run -d --name client_test -p 8081:8081 jbtvjyc:client
+  - mvn failsafe:integration-test -Dit.test=com.jbtvjyc.scrabble.data.MoteurWebControlleurITCase#demanderAuJoueurDeJouerTest
+  - docker start client_test
+  - mvn failsafe:integration-test -Dit.test=com.jbtvjyc.scrabble.data.MoteurWebControlleurITCase#demanderAuJoueurDeJouerTest2foisDeSuite
+  - mvn exec:java &
+  - cd ../client
+  - mvn exec:java
