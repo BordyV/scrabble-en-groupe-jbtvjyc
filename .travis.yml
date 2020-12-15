@@ -11,8 +11,8 @@ install:
 
 before_script:
   - docker ps -a -q
-  - docker build serveur -t exempleio:serveur
-  - docker build client -t exempleio:client
+  - docker build server -t jbtvjyc:server
+  - docker build client -t jbtvjyc:client
   - docker images
 
 script:
@@ -25,8 +25,8 @@ script:
   - docker-compose up --scale client=3
   - docker rm $(docker ps -a -q)
   - docker ps -a -q
-  - docker rmi exempleio:serveur
-  - docker rmi exempleio:client
+  - docker rmi jbtvjyc:server
+  - docker rmi jbtvjyc:client
 
 #script:
  # - mvn test
