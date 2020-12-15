@@ -3,19 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-<parent>
-    <groupId>com.jbtvjyc</groupId>
-    <artifactId>scrabble</artifactId>
-    <version>0.0.1</version>
-</parent>
+    <parent>
+        <groupId>com.jbtvjyc</groupId>
+        <artifactId>scrabble</artifactId>
+        <version>0.0.1</version>
+    </parent>
 
-    <groupId>com.jbtvjyc</groupId>
     <artifactId>client</artifactId>
     <version>0.0.1</version>
 
-    <properties>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../devtools/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -41,18 +37,35 @@
                         <goals>
                             <goal>java</goal>
                         </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>autoconnect</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>IT</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>test->pas d'autoconnect</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <mainClass>com.jbtvjyc.scrabble.client.ClientApplication</mainClass>
+
+                    <arguments>
+                        <argument>autoconnect</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>src/main/ressources</directory>
-            </testResource>
-        </testResources>
     </build>
-    
+
+
+
 </project>
