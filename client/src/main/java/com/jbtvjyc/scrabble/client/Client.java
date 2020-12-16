@@ -18,16 +18,16 @@ public class Client {
         this.lesMots = new Mots();
     }
 
-    public MotPositionne jouer(Inventaire inventaire) {
-        MotPositionne motTrouver = this.trouverMot(inventaire, this.lesMots.getListeDeMots());
+    public MotPositionne jouer(EtatDuJeu etatDuJeu) {
+        MotPositionne motTrouver = this.trouverMot(etatDuJeu, this.lesMots.getListeDeMots());
         System.out.println("Joueur > je joue en " + motTrouver.getAbscisse() + " , " + motTrouver.getOrdonnee() +
                 " le mot " + motTrouver.getMot() + " de facon " + (motTrouver.getHorizontal() ? "horizontal" : "vertical"));
 
         return motTrouver;
     }
 
-    public MotPositionne trouverMot(Inventaire inventaire, ArrayList<String> listeDeMots) {
-        ArrayList<Character> currInventaire = inventaire.getLettres();
+    public MotPositionne trouverMot(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots) {
+        ArrayList<Character> currInventaire = etatDuJeu.getInventaire().getLettres();
 
         // We first count the number of each letter in the word and put the result in an array
         char[] nbLettresInv = new char[26];

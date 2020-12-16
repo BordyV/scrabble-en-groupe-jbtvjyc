@@ -79,9 +79,9 @@ public class Pioche {
     }
 
     public void piocherPlusieursLettres(EtatDuJeu etatDuJeu, int ndDeLettres) {
-        int tailleInitialDuChario = etatDuJeu.getChariot().size();
+        int tailleInitialDuChario = etatDuJeu.getInventaire().getLettres().size();
         for (int i = tailleInitialDuChario; i < tailleInitialDuChario+ndDeLettres; i++){
-            etatDuJeu.getChariot().add(i, piocherUneLettre());
+            etatDuJeu.getInventaire().getLettres().add(i, piocherUneLettre());
             //System.out.println("taille du chario : "+etatDuJeu.getChariot().size());
             //System.out.println("dans la bloucle");
         }

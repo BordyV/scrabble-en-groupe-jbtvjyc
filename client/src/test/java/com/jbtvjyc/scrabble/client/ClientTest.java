@@ -41,8 +41,7 @@ class ClientTest {
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
         this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+        //this.etatDuJeu.getInventaire().setLettres(chariot);
         MotPositionne motTrouve = this.client.trouverMot(this.etatDuJeu, this.mots.getListeDeMots());
         assertEquals(motTrouve.getMot(), "abaisse");
     }
@@ -64,8 +63,6 @@ class ClientTest {
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
         this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
         MotPositionne motTrouve = this.client.trouverMot(this.etatDuJeu, this.mots.getListeDeMots());
         assertNull(motTrouve);
     }
@@ -83,8 +80,6 @@ class ClientTest {
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
         this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
         MotPositionne motTrouve = this.client.jouer(this.etatDuJeu);
         assertEquals(motTrouve.getMot(), "abaisse");
     }

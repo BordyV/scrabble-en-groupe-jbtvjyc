@@ -33,8 +33,8 @@ public class EtatDuJeuTests {
         chariotTest.add(new Character('a'));
         chariotTest.add(new Character('b'));
         chariotTest.add(new Character('c'));
-        etatDuJeu.setChariot(chariotTest);
-        Assertions.assertEquals(chariotTest, etatDuJeu.getChariot());
+        etatDuJeu.getInventaire().setLettres(chariotTest);
+        Assertions.assertEquals(chariotTest, etatDuJeu.getInventaire().getLettres());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class EtatDuJeuTests {
         Character ch2 = new Character('b');
         Character ch3 = new Character('c');
         etatDuJeu.ajouterLettres(ch1, ch2, ch3);
-        Assertions.assertEquals(chariotTest, etatDuJeu.getChariot());
+        Assertions.assertEquals(chariotTest, etatDuJeu.getInventaire().getLettres());
     }
 
     @Test
