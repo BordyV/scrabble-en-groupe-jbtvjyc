@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.jbtvjyc.scrabble.data.MotPositionne;
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
+import com.jbtvjyc.scrabble.data.Inventaire;
 
 import java.util.ArrayList;
 
@@ -17,16 +18,16 @@ public class Client {
         this.lesMots = new Mots();
     }
 
-    public MotPositionne jouer(EtatDuJeu etatDuJeu) {
-        MotPositionne motTrouver = this.trouverMot(etatDuJeu, this.lesMots.getListeDeMots());
+    public MotPositionne jouer(Inventaire inventaire) {
+        MotPositionne motTrouver = this.trouverMot(inventaire, this.lesMots.getListeDeMots());
         System.out.println("Joueur > je joue en " + motTrouver.getAbscisse() + " , " + motTrouver.getOrdonnee() +
                 " le mot " + motTrouver.getMot() + " de facon " + (motTrouver.getHorizontal() ? "horizontal" : "vertical"));
 
         return motTrouver;
     }
 
-    public MotPositionne trouverMot(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots) {
-        ArrayList<Character> currInventaire = etatDuJeu.getChariot();
+    public MotPositionne trouverMot(Inventaire inventaire, ArrayList<String> listeDeMots) {
+        ArrayList<Character> currInventaire = inventaire.getLettres();
 
         // We first count the number of each letter in the word and put the result in an array
         char[] nbLettresInv = new char[26];

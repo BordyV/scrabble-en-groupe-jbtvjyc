@@ -6,18 +6,15 @@ import com.jbtvjyc.scrabble.data.Plateau;
 
 public class EtatDuJeu {
     ArrayList<MotPositionne> listeDeMots;
-    ArrayList<Character> chariot;
     Plateau plateau;
 
     public EtatDuJeu() {
         this.listeDeMots = new ArrayList<>();
-        this.chariot = new ArrayList<>();
         this.plateau = new Plateau();
     }
 
     public EtatDuJeu(Plateau plateau) {
         this.listeDeMots = new ArrayList<>();
-        this.chariot = new ArrayList<>();
         this.plateau = plateau;
     }
 
@@ -27,14 +24,6 @@ public class EtatDuJeu {
 
     public void setListeDeMots(ArrayList<MotPositionne> listeDeMots) {
         this.listeDeMots = listeDeMots;
-    }
-
-    public ArrayList<Character> getChariot() {
-        return this.chariot;
-    }
-
-    public void setChariot(ArrayList<Character> chariot) {
-        this.chariot = chariot;
     }
 
     public void ajouterLettres(Character... lettres) {
