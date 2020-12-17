@@ -33,7 +33,7 @@ public class Moteur implements Runnable {
     @Override
     public void run() {
         for(int nbTour = 0; nbTour < 40; nbTour++) {
-            this.etatDuJeu.getInventaire().setLettres(new ArrayList<Character>());
+            this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
             this.etatDuJeu.ajouterLettres('a','b','a','i','s','s','e');
             MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
             this.verification = new Verification(this.etatDuJeu.getInventaire().getLettres(), motJoue,this.etatDuJeu.getPlateau(), this.lesMotsPossibles);

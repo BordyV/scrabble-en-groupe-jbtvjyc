@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.jbtvjyc.scrabble.data.MotPositionne;
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
-import com.jbtvjyc.scrabble.data.Inventaire;
 
 import java.util.ArrayList;
 
@@ -67,7 +66,8 @@ public class Client {
         }
 
         // We try to find a position for the word
-        int x, y;
+        int x;
+        int y;
         boolean posable = false;
         boolean horizontal = true;
         int nbTries = 0;
