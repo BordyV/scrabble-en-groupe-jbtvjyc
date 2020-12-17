@@ -178,7 +178,21 @@ public class Client {
                             }
                         }
 
-                        //return new MotPositionne(bestMot, x, y, horizontal);
+                        //On veut avoir la position x et y du mots a poser
+                        int positionLettrePlateauDansMot = 0;
+                        String leMotAPlacer = bestMot;
+                        for(char laLettre : leMotAPlacer.toCharArray()){
+                            if(etatDuJeu.getPlateau().getCase(j,i).getValeur() == laLettre){
+                                break;
+                            }
+                            positionLettrePlateauDansMot++;
+                        }
+
+                        if(horizontal == true){
+                            return new MotPositionne(bestMot, x-positionLettrePlateauDansMot, y, horizontal);
+                        }else {
+                            return new MotPositionne(bestMot, x, y-positionLettrePlateauDansMot, horizontal);
+                        }
                     }
 
                 }
