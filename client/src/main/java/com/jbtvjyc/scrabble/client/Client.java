@@ -1,5 +1,6 @@
 package com.jbtvjyc.scrabble.client;
 
+import com.jbtvjyc.scrabble.data.Case;
 import com.jbtvjyc.scrabble.data.Mots;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -105,6 +106,89 @@ public class Client {
         }
 
         return new MotPositionne(bestMot, x, y, horizontal);
+    }
+
+    public MotPositionne trouverMotAvecPlateau(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots){
+
+        ArrayList<Character> currInventaire = etatDuJeu.getChariot();
+        int x = 7, y = 7;
+
+        // We first count the number of each letter in the word and put the result in an array
+        char[] nbLettresInv = new char[26];
+
+        for (char c : currInventaire) {
+            nbLettresInv[Character.toLowerCase(c) - 'a']++; // c - 'a' is a number between 0 and 25 for lowercase letters.
+        }
+
+        String bestMot = null;
+        int bestScore = 0;
+
+        if(etatDuJeu.getPlateau().getCase(y, x).getValeur() == Character.MIN_VALUE){
+            return trouverMot(etatDuJeu,listeDeMots);
+        }else{
+            int lettre_plateau_x = 0, lettre_plateau_y = 0;
+
+            for (int i = 0; i < 15; i++){
+                for (int j = 0; j < 15; j++){
+
+                    if(etatDuJeu.getPlateau().getCase(j,i).getValeur() != Character.MIN_VALUE){
+                        char laLettrePlateau = etatDuJeu.getPlateau().getCase(j,i).getValeur();
+                        nbLettresInv[Character.toLowerCase(laLettrePlateau) - 'a']++;
+
+                        for (String mot : listeDeMots) {
+                            char[] nbLettresMots = new char[26];
+                            int score = 0;
+                            for (char c : mot.toCharArray()) {
+                                int lettre = Character.toLowerCase(c) - 'a';
+                                nbLettresMots[lettre]++;
+
+                                if (nbLettresInv[lettre] < nbLettresMots[lettre]) {
+                                    score = -1;
+                                    break;
+                                }
+
+                                score += etatDuJeu.getPlateau().getScore(c);
+                            }
+                            if (score > bestScore) {
+                                bestScore = score;
+                                bestMot = mot;
+                                lettre_plateau_x = i;
+                                lettre_plateau_y = j;
+                            }
+                        }
+
+                        if (bestMot == null) {
+                            return null;
+                        }
+
+                        //On regarde si le mot doit etre positionné de maniere vertical ou horizontal
+                        boolean horizontal = true;
+
+                        if((lettre_plateau_x > 0 && lettre_plateau_x < 14) ){
+                            if(etatDuJeu.getPlateau().getCase(j,i-1).getValeur() != Character.MIN_VALUE || etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                horizontal = false;
+                            }
+                        }else if(lettre_plateau_x == 0){
+                            if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                horizontal = false;
+                            }
+                        }else if(lettre_plateau_x == 14){
+                            if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                horizontal = false;
+                            }
+                        }
+
+                        //return new MotPositionne(bestMot, x, y, horizontal);
+                    }
+
+                }
+            }
+
+        }
+
+
+
+
     }
 
 }
