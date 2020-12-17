@@ -89,4 +89,28 @@ class ClientTest {
         assertEquals(motTrouve.getMot(), "abaisse");
     }
 
+    @Test
+    void trouverMotAvecPlateauTest() {
+        ArrayList<Character> chariot = new ArrayList<Character>();
+        chariot.add('a');
+        chariot.add('b');
+        chariot.add('a');
+        chariot.add('i');
+        chariot.add('s');
+        chariot.add('s');
+        //chariot.add('e');
+        //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
+        //l'inventaire sera peutetre dans l'état du jeu
+        this.inventaire.setLettres(chariot);
+        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
+        this.etatDuJeu.setChariot(chariot);
+
+        MotPositionne motAPoserVer = new MotPositionne("chameau", 7, 7, false);
+        this.etatDuJeu.getPlateau().poserMot(motAPoserVer);
+
+        MotPositionne motTrouve = this.client.trouverMotAvecPlateau(this.etatDuJeu, this.mots.getListeDeMots());
+        assertEquals("abaisse", motTrouve.getMot());
+
+    }
+
 }

@@ -110,32 +110,37 @@ public class Client {
 
     public MotPositionne trouverMotAvecPlateau(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots){
 
-        ArrayList<Character> currInventaire = etatDuJeu.getChariot();
         int x = 7, y = 7;
-
-        // We first count the number of each letter in the word and put the result in an array
-        char[] nbLettresInv = new char[26];
-
-        for (char c : currInventaire) {
-            nbLettresInv[Character.toLowerCase(c) - 'a']++; // c - 'a' is a number between 0 and 25 for lowercase letters.
-        }
-
         String bestMot = null;
         int bestScore = 0;
-        
-        MotPositionne resultat = null;
+        boolean horizontal = true;
 
+        MotPositionne resultat = null;
         if(etatDuJeu.getPlateau().getCase(y, x).getValeur() == Character.MIN_VALUE){
             return trouverMot(etatDuJeu,listeDeMots);
         }else{
             int lettre_plateau_x = 0, lettre_plateau_y = 0;
 
-            for (int i = 0; i < 15; i++){
-                for (int j = 0; j < 15; j++){
+            for (int i = 0; i < 14; i++){
+                for (int j = 0; j < 14; j++){
+
+                    ArrayList<Character> currInventaire = null;
+                    char[] nbLettresInv = null;
+
+                    //System.out.println("Caractere a la position (" + j + ","+ i+") : " + etatDuJeu.getPlateau().getCase(j,i).getValeur()+ ".");
 
                     if(etatDuJeu.getPlateau().getCase(j,i).getValeur() != Character.MIN_VALUE){
-                        char laLettrePlateau = etatDuJeu.getPlateau().getCase(j,i).getValeur();
-                        nbLettresInv[Character.toLowerCase(laLettrePlateau) - 'a']++;
+
+                        currInventaire = etatDuJeu.getChariot();
+                        currInventaire.add(etatDuJeu.getPlateau().getCase(j,i).getValeur());
+
+                        //System.out.println("Inventaire : " + etatDuJeu.getChariot());
+
+                        nbLettresInv = new char[26];
+
+                        for (char c : currInventaire) {
+                            nbLettresInv[Character.toLowerCase(c) - 'a']++; // c - 'a' is a number between 0 and 25 for lowercase letters.
+                        }
 
                         for (String mot : listeDeMots) {
                             char[] nbLettresMots = new char[26];
@@ -158,17 +163,18 @@ public class Client {
                                 lettre_plateau_y = j;
                             }
                         }
+                        currInventaire.remove(currInventaire.size()-1);
 
                         if (bestMot == null) {
-                            return null;
+                            //return null;
                         }
 
                         //On regarde si le mot doit etre positionné de maniere vertical ou horizontal
-                        boolean horizontal = true;
 
                         if((lettre_plateau_x > 0 && lettre_plateau_x < 14) ){
                             if(etatDuJeu.getPlateau().getCase(j,i-1).getValeur() != Character.MIN_VALUE || etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
-                                horizontal = false;
+                            horizontal = false;
+                            //System.out.println("Position j et i de "+etatDuJeu.getPlateau().getCase(j,i).getValeur()+" : "+ j +" et "+ i);
                             }
                         }else if(lettre_plateau_x == 0){
                             if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
@@ -184,7 +190,7 @@ public class Client {
                         int positionLettrePlateauDansMot = 0;
                         String leMotAPlacer = bestMot;
                         for(char laLettre : leMotAPlacer.toCharArray()){
-                            if(etatDuJeu.getPlateau().getCase(j,i).getValeur() == laLettre){
+                            if(etatDuJeu.getPlateau().getCase(lettre_plateau_y,lettre_plateau_x).getValeur() == laLettre){
                                 break;
                             }
                             positionLettrePlateauDansMot++;
@@ -197,13 +203,14 @@ public class Client {
                         }
                     }
 
+                    }
+
                 }
             }
-
+            System.out.println("J'ai trouver : "+resultat.toString());
+            return resultat;
         }
 
-        return resultat;
-        
+
     }
 
-}
