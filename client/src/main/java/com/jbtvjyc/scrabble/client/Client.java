@@ -122,6 +122,8 @@ public class Client {
 
         String bestMot = null;
         int bestScore = 0;
+        
+        MotPositionne resultat = null;
 
         if(etatDuJeu.getPlateau().getCase(y, x).getValeur() == Character.MIN_VALUE){
             return trouverMot(etatDuJeu,listeDeMots);
@@ -189,9 +191,9 @@ public class Client {
                         }
 
                         if(horizontal == true){
-                            return new MotPositionne(bestMot, x-positionLettrePlateauDansMot, y, horizontal);
+                            resultat = new MotPositionne(bestMot, lettre_plateau_x-positionLettrePlateauDansMot, lettre_plateau_y, horizontal);
                         }else {
-                            return new MotPositionne(bestMot, x, y-positionLettrePlateauDansMot, horizontal);
+                            resultat = new MotPositionne(bestMot, lettre_plateau_x, lettre_plateau_y-positionLettrePlateauDansMot, horizontal);
                         }
                     }
 
@@ -200,9 +202,8 @@ public class Client {
 
         }
 
-
-
-
+        return resultat;
+        
     }
 
 }
