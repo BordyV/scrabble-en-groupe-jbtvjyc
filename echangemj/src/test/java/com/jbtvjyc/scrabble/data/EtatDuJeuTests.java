@@ -1,23 +1,16 @@
 package com.jbtvjyc.scrabble.data;
 
-import com.jbtvjyc.scrabble.data.EtatDuJeu;
-import com.jbtvjyc.scrabble.data.MotPositionne;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class EtatDuJeuTests {
+class EtatDuJeuTests {
 
     @Test
     void testGetListeDeMots() {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
-        ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
-        ArrayList<Character> chariotTest = new ArrayList<>();
+        List<MotPositionne> listeDeMotsTest = new ArrayList<>();
         listeDeMotsTest.add(new MotPositionne("chameaux",1,1));
         listeDeMotsTest.add(new MotPositionne("vache",1,1));
         listeDeMotsTest.add(new MotPositionne("moto",1,1));
@@ -28,8 +21,7 @@ public class EtatDuJeuTests {
     @Test
     void testGetListeDeMots2() {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
-        ArrayList<MotPositionne> listeDeMotsTest = new ArrayList<>();
-        ArrayList<Character> chariotTest = new ArrayList<>();
+        List<Character> chariotTest = new ArrayList<>();
         chariotTest.add(new Character('a'));
         chariotTest.add(new Character('b'));
         chariotTest.add(new Character('c'));
@@ -40,7 +32,7 @@ public class EtatDuJeuTests {
     @Test
     void testAjouterLettres() {
         EtatDuJeu etatDuJeu = new EtatDuJeu();
-        ArrayList<Character> chariotTest = new ArrayList<>();
+        List<Character> chariotTest = new ArrayList<>();
         chariotTest.add(new Character('a'));
         chariotTest.add(new Character('b'));
         chariotTest.add(new Character('c'));

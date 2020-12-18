@@ -5,8 +5,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.jbtvjyc.scrabble.data.MotPositionne;
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
-
-import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @Scope("singleton")
@@ -25,8 +24,8 @@ public class Client {
         return motTrouver;
     }
 
-    public MotPositionne trouverMot(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots) {
-        ArrayList<Character> currInventaire = etatDuJeu.getInventaire().getLettres();
+    public MotPositionne trouverMot(EtatDuJeu etatDuJeu, List<String> listeDeMots) {
+        List<Character> currInventaire = etatDuJeu.getInventaire().getLettres();
 
         // We first count the number of each letter in the word and put the result in an array
         char[] nbLettresInv = new char[26];

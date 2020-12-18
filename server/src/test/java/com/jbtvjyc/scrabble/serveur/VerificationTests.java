@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,7 +19,7 @@ public class VerificationTests {
         MotPositionne position = new MotPositionne("manger",7,7,true);
         Plateau plateau = new Plateau();
         Mots lesMots = new Mots();
-        ArrayList<Character> lettres = new ArrayList<>();
+        List<Character> lettres = new ArrayList<>();
         lettres.add('m');
         lettres.add('a');
         lettres.add('n');
