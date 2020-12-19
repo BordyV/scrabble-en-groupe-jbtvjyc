@@ -1,11 +1,11 @@
 package com.jbtvjyc.scrabble.client;
 
-import com.jbtvjyc.scrabble.data.Case;
 import com.jbtvjyc.scrabble.data.Mots;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.jbtvjyc.scrabble.data.MotPositionne;
 import com.jbtvjyc.scrabble.data.EtatDuJeu;
+
 import java.util.List;
 
 @Component
@@ -108,7 +108,7 @@ public class Client {
         return new MotPositionne(bestMot, x, y, horizontal);
     }
 
-    public MotPositionne trouverMotAvecPlateau(EtatDuJeu etatDuJeu, ArrayList<String> listeDeMots){
+    public MotPositionne trouverMotAvecPlateau(EtatDuJeu etatDuJeu, List<String> listeDeMots){
 
         int x = 7, y = 7;
         String bestMot = null;
@@ -126,14 +126,14 @@ public class Client {
             for (int i = 0; i < 14; i++){
                 for (int j = 0; j < 14; j++){
 
-                    ArrayList<Character> currInventaire = null;
+                    List<Character> currInventaire = null;
                     char[] nbLettresInv = null;
 
                     //System.out.println("Caractere a la position (" + j + ","+ i+") : " + etatDuJeu.getPlateau().getCase(j,i).getValeur()+ ".");
 
                     if(etatDuJeu.getPlateau().getCase(j,i).getValeur() != Character.MIN_VALUE){
 
-                        currInventaire = etatDuJeu.getChariot();
+                        currInventaire = etatDuJeu.getInventaire().getLettres();
                         currInventaire.add(etatDuJeu.getPlateau().getCase(j,i).getValeur());
 
                         //System.out.println("Inventaire : " + etatDuJeu.getChariot());

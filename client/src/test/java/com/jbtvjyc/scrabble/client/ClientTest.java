@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClientTest {
 
     EtatDuJeu etatDuJeu;
-    Inventaire inventaire;
     Mots mots;
     Client client;
 
@@ -20,7 +19,6 @@ class ClientTest {
         this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire());
         this.mots = new Mots();
         this.client = new Client();
-        this.inventaire = new Inventaire();
     }
 
     /**
@@ -76,8 +74,8 @@ class ClientTest {
         chariot.add('s');
         chariot.add('s');
         chariot.add('e');
-        //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
-        //l'inventaire sera peutetre dans l'état du jeu
+
+
         this.etatDuJeu.getInventaire().setLettres(chariot);
         MotPositionne motTrouve = this.client.jouer(this.etatDuJeu);
         assertEquals("abaisse",motTrouve.getMot());
@@ -93,11 +91,7 @@ class ClientTest {
         chariot.add('s');
         chariot.add('s');
         //chariot.add('e');
-        //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
-        //l'inventaire sera peutetre dans l'état du jeu
-        this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+        this.etatDuJeu.getInventaire().setLettres(chariot);
 
         MotPositionne motAPoserVer = new MotPositionne("chameau", 7, 7, false);
         this.etatDuJeu.getPlateau().poserMot(motAPoserVer);
@@ -118,11 +112,8 @@ class ClientTest {
         chariot.add('s');
         chariot.add('s');
         //chariot.add('e');
-        //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
-        //l'inventaire sera peutetre dans l'état du jeu
-        this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+
+        this.etatDuJeu.getInventaire().setLettres(chariot);
 
         MotPositionne motAPoserVerInitial = new MotPositionne("z", 7, 7, false);
         this.etatDuJeu.getPlateau().poserMot(motAPoserVerInitial);
