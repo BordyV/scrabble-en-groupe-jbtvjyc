@@ -18,7 +18,7 @@ class ClientTest {
 
     @BeforeEach
     void setup() {
-        this.etatDuJeu = new EtatDuJeu(new Plateau());
+        this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire());
         this.mots = new Mots();
         this.client = new Client();
         this.inventaire = new Inventaire();
@@ -30,7 +30,7 @@ class ClientTest {
      */
     @Test
     void trouverMotTest() {
-        ArrayList<Character> chariot = new ArrayList<Character>();
+        ArrayList<Character> chariot = new ArrayList<>();
         chariot.add('a');
         chariot.add('b');
         chariot.add('a');
@@ -40,11 +40,10 @@ class ClientTest {
         chariot.add('e');
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
-        this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+        this.etatDuJeu.getInventaire().setLettres(chariot);
+        //this.etatDuJeu.getInventaire().setLettres(chariot);
         MotPositionne motTrouve = this.client.trouverMot(this.etatDuJeu, this.mots.getListeDeMots());
-        assertEquals(motTrouve.getMot(), "abaisse");
+        assertEquals("abaisse",motTrouve.getMot());
     }
 
     /**
@@ -63,9 +62,7 @@ class ClientTest {
         chariot.add('z');
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
-        this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+        this.etatDuJeu.getInventaire().setLettres(chariot);
         MotPositionne motTrouve = this.client.trouverMot(this.etatDuJeu, this.mots.getListeDeMots());
         assertNull(motTrouve);
     }
@@ -82,11 +79,9 @@ class ClientTest {
         chariot.add('e');
         //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
         //l'inventaire sera peutetre dans l'état du jeu
-        this.inventaire.setLettres(chariot);
-        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
-        this.etatDuJeu.setChariot(chariot);
+        this.etatDuJeu.getInventaire().setLettres(chariot);
         MotPositionne motTrouve = this.client.jouer(this.etatDuJeu);
-        assertEquals(motTrouve.getMot(), "abaisse");
+        assertEquals("abaisse",motTrouve.getMot());
     }
 
 }

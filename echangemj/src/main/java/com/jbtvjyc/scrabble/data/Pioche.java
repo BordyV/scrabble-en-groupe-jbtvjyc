@@ -1,18 +1,19 @@
 package com.jbtvjyc.scrabble.data;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Pioche {
     private char[] alphabet = "abcdefghijklmnopqrstuvwxyz-".toCharArray();
     private ArrayList<Integer> sac;
-    private int TAILLE_DU_SAC_PAR_DEFAUT = 100;
+    private int tailleDuSacParDefaut = 100;
     //ajout des deux pieces "joker", 102 pieces
     private int tailleDuSac;
     private boolean sacVide = false;
 
     public Pioche() {
-        this.tailleDuSac = TAILLE_DU_SAC_PAR_DEFAUT;
+        this.tailleDuSac = tailleDuSacParDefaut;
         this.sac = new ArrayList<>();
         for (int i=0; i<26; i++){
             this.sac.add(1);
@@ -79,25 +80,20 @@ public class Pioche {
     }
 
     public void piocherPlusieursLettres(EtatDuJeu etatDuJeu, int ndDeLettres) {
-        int tailleInitialDuChario = etatDuJeu.getChariot().size();
+        int tailleInitialDuChario = etatDuJeu.getInventaire().getLettres().size();
         for (int i = tailleInitialDuChario; i < tailleInitialDuChario+ndDeLettres; i++){
-            etatDuJeu.getChariot().add(i, piocherUneLettre());
-            //System.out.println("taille du chario : "+etatDuJeu.getChariot().size());
-            //System.out.println("dans la bloucle");
+            etatDuJeu.getInventaire().getLettres().add(i, piocherUneLettre());
         }
-        //System.out.println("bloucle passe");
     }
 
     public char piocherUneLettre() {
         int index;
         char lettreTrouvee;
-        //System.out.println("bloucle pas passe");
         do {
             Random random = new Random();
             index = random.nextInt(26);
             lettreTrouvee = alphabet[index];
-        } while (this.LettreVide(index));
-        //System.out.println("bloucle passe");
+        } while (this.lettreVide(index));
         int newVal = this.sac.get(index)-1;
         System.out.println();
         this.sac.set(index, newVal);
@@ -111,7 +107,7 @@ public class Pioche {
         return lettreTrouvee;
     }
 
-    public boolean LettreVide(int index) {
+    public boolean lettreVide(int index) {
         return this.sac.get(index) == 0;
     }
 
@@ -131,7 +127,7 @@ public class Pioche {
         this.tailleDuSac = t;
     }
 
-    public ArrayList<Integer> getSac() {
+    public List<Integer> getSac() {
         return this.sac;
     }
 }

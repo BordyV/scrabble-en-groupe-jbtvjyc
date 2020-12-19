@@ -5,16 +5,17 @@ import com.jbtvjyc.scrabble.data.Mots;
 import com.jbtvjyc.scrabble.data.Plateau;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Verification {
     String mot;
-    ArrayList<Character> lettresjoueur;
+    List<Character> lettresjoueur;
     MotPositionne motPosition;
     Plateau plateau;
     Mots lesMots;
 
 
-    public Verification(ArrayList<Character> joueur, MotPositionne positionne,Plateau plateau, Mots mots){
+    public Verification(List<Character> joueur, MotPositionne positionne,Plateau plateau, Mots mots){
         this.lettresjoueur = joueur;
         this.motPosition = positionne;
         this.plateau = plateau;
@@ -22,8 +23,8 @@ public class Verification {
         this.lesMots = mots;
 
     }
-    public ArrayList<Integer> positionLettres(){
-        ArrayList<Integer> positions = new ArrayList<>();
+    public List<Integer> positionLettres(){
+        List<Integer> positions = new ArrayList<>();
         int posX =motPosition.getAbscisse();
         int posY = motPosition.getOrdonnee();
         if(motPosition.getHorizontal()) {
@@ -56,7 +57,7 @@ public class Verification {
         if ((motPosition.getHorizontal() && posX + this.mot.length() > 14) || (!motPosition.getHorizontal() && posY + this.mot.length() > 14)) {
             return false;
         }
-        ArrayList<Integer> positions = positionLettres();
+        List<Integer> positions = positionLettres();
         if(this.mot.length() == positions.size()){
             return false;
         }

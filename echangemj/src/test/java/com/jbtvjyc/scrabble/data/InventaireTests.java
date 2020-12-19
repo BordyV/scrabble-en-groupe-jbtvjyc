@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +21,7 @@ class InventaireTests {
     void tearDown(){}
     @Test
     void InventaireAdd() {
-        ArrayList<Character> lettres = new ArrayList<>();
+        List<Character> lettres = new ArrayList<>();
         lettres.add('a');
         lettres.add('b');
         lettres.add('c');

@@ -6,7 +6,7 @@ public class Case {
 
     public Case() {
         this.valeur = Character.MIN_VALUE;
-        this.bonus = Bonus.vide;
+        this.bonus = Bonus.VIDE;
     }
 
     public Case(Bonus bonus) {

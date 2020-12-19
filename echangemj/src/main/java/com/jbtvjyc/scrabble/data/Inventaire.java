@@ -2,21 +2,22 @@ package com.jbtvjyc.scrabble.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Inventaire {
-    ArrayList<Character> lettres;
+    List<Character> lettres;
     int score;
 
     public Inventaire(){
-        this.lettres = new ArrayList<Character>();
+        this.lettres = new ArrayList<>();
         this.score = 0;
     }
 
-    public ArrayList<Character> getLettres() {
+    public List<Character> getLettres() {
         return this.lettres;
     }
 
-    public void setLettres(ArrayList<Character> lettres) {
+    public void setLettres(List<Character> lettres) {
         this.lettres = lettres;
     }
 
@@ -28,8 +29,8 @@ public class Inventaire {
         return this.score;
     }
 
-    public int addScore(int scoresup){
-        return this.score += scoresup;
+    public void addScore(int scoresup){
+        this.score = this.score +scoresup;
     }
 
 }

@@ -24,19 +24,16 @@ public class ClientWebController {
     @PostMapping("/finir")
     public void finir() {
         // fin brutale (pour abréger sur travis), mais il faut répondre un peu après
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("fin du programme du joueur");
-                try {
-                    TimeUnit.MILLISECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    System.exit(0);
-                }
-
+        Thread t = new Thread(() -> {
+            System.out.println("fin du programme du joueur");
+            try {
+                TimeUnit.MILLISECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                System.exit(0);
             }
+
         });
         t.start();
     }
