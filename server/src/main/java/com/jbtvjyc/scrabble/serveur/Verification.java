@@ -45,21 +45,24 @@ public class Verification {
         }
         return positions;
     }
-    public boolean verifMotAdjacent(){
+    public boolean verifMotAdjacent(List<Integer> positions){
         int posX =motPosition.getAbscisse();
         int posY = motPosition.getOrdonnee();
         int pos=1;
-        String motBase = this.mot;
+        int cptLettreAdjacent = 0;
+        String motBase = mot;
         if(motPosition.getHorizontal()){
             if(posX !=0 && plateau.getCase(posY, posX-1).getValeur() != Character.MIN_VALUE || posX+mot.length() !=14 && plateau.getCase(posY, posX+mot.length()).getValeur() != Character.MIN_VALUE){
                 while( posX-pos >= 0 && plateau.getCase(posY, posX-pos).getValeur() != Character.MIN_VALUE){
                     motBase= Character.toLowerCase(plateau.getCase(posY, posX-pos).getValeur()) + motBase;
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
-                pos = this.mot.length();
+                pos = mot.length();
                 while(posX+pos <=14 && plateau.getCase(posY, posX+pos).getValeur() != Character.MIN_VALUE){
                     motBase= motBase + Character.toLowerCase(plateau.getCase(posY, posX+pos).getValeur());
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
                 if (!this.lesMots.verificationExistanceMot(motBase)) {
                     return false;
@@ -72,28 +75,35 @@ public class Verification {
                 while(posY-pos >= 0 && plateau.getCase(posY-pos, posX+i).getValeur() != Character.MIN_VALUE){
                     motAdjacent = Character.toLowerCase(plateau.getCase(posY-pos, posX+i).getValeur()) + motAdjacent;
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
                 pos = 1;
                 while(posY-pos <= 14 && plateau.getCase(posY+pos, posX+i).getValeur() != Character.MIN_VALUE){
                     motAdjacent = motAdjacent + Character.toLowerCase(plateau.getCase(posY+pos, posX+i).getValeur());
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
                 if(!this.lesMots.verificationExistanceMot(motAdjacent)){
                     return false;
                 }
             }
         }
+            if(cptLettreAdjacent ==0 && positions.size() == 0){
+                return false;
+            }
         }
         else{
             if(posY != 0 && plateau.getCase(posY-1, posX).getValeur() != Character.MIN_VALUE || posY+mot.length() != 14 && plateau.getCase(posY+mot.length(), posX).getValeur() != Character.MIN_VALUE){
                 while(posY-pos >= 0 &&plateau.getCase(posY-pos, posX).getValeur() != Character.MIN_VALUE){
                     motBase= Character.toLowerCase(plateau.getCase(posY-pos, posX).getValeur()) + motBase;
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
                 pos = this.mot.length();
                 while(posY+pos <=14 && plateau.getCase(posY+pos, posX).getValeur() != Character.MIN_VALUE){
                     motBase= motBase + Character.toLowerCase(plateau.getCase(posY+pos, posX).getValeur());
                     pos +=1;
+                    cptLettreAdjacent+=1;
                 }
                 if (!this.lesMots.verificationExistanceMot(motBase)) {
                     return false;
@@ -106,16 +116,21 @@ public class Verification {
                     while(posX-pos >= 0 && plateau.getCase(posY+i, posX-pos).getValeur() != Character.MIN_VALUE){
                         motAdjacent = Character.toLowerCase(plateau.getCase(posY+i, posX-pos).getValeur()) + motAdjacent;
                         pos +=1;
+                        cptLettreAdjacent+=1;
                     }
                     pos = 1;
                     while(posX-pos <= 14 && plateau.getCase(posY+i, posX+pos).getValeur() != Character.MIN_VALUE){
                         motAdjacent = motAdjacent + Character.toLowerCase(plateau.getCase(posY+i, posX+pos).getValeur());
                         pos +=1;
+                        cptLettreAdjacent+=1;
                     }
                     if(!this.lesMots.verificationExistanceMot(motAdjacent)){
                         return false;
                     }
                 }
+            }
+            if(cptLettreAdjacent ==0 && positions.size() == 0){
+                return false;
             }
         }
         return true;
@@ -139,8 +154,22 @@ public class Verification {
         if (this.lettresjoueur.size()+positions.size() < this.mot.length()) {
             return false;
         }
-        if(!this.verifMotAdjacent()){
-            return false;
+        if(plateau.getCase(7,7).getValeur() != Character.MIN_VALUE) {
+            if (!this.verifMotAdjacent(positions)) {
+                return false;
+            }
+        }
+        else{
+            if(motPosition.getHorizontal()){
+                if(!(posX<=7 && posX + this.mot.length() - 1 >=8)){
+                    return false;
+                }
+            }
+            else{
+                if(!(posY<=7 && posY + this.mot.length() - 1 >=8)){
+                    return false;
+                }
+            }
         }
         if (motPosition.getHorizontal()) {
             for (Integer position : positions) {
