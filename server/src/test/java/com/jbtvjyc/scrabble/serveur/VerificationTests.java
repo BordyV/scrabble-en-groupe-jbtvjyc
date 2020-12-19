@@ -26,7 +26,7 @@ public class VerificationTests {
         lettres.add('g');
         lettres.add('e');
         lettres.add('r');
-        this.verifTest = new Verification(lettres,position,plateau, lesMots);
+        this.verifTest = new Verification(lettres,position,plateau,lesMots);
 
     }
 
@@ -39,6 +39,183 @@ public class VerificationTests {
         assertTrue(verifTest.verifMot());
     }
 
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec le mot adjacent Rire en verticale en (12,7)
+    @Test
+    void verificationAdjacentHoriVertiTrue() {
+        MotPositionne rireVerti = new MotPositionne("rire",12,7,false);
+        verifTest.plateau.poserMot(rireVerti);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec le mot adjacent Riret en verticale en (12,7)
+    @Test
+    void verificationAdjacentHoriVertiFalse() {
+        MotPositionne riretVerti = new MotPositionne("riret",12,7,false);
+        verifTest.plateau.poserMot(riretVerti);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec le mot adjacent Rire en verticale en (12,5)
+    @Test
+    void verificationAdjacentHoriVertiMilieuTrue() {
+        MotPositionne rireVerti = new MotPositionne("rire",12,5,false);
+        verifTest.plateau.poserMot(rireVerti);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec le mot adjacent Riret en verticale en (12,5)
+    @Test
+    void verificationAdjacentHoriVertiMilieuFalse() {
+        MotPositionne riretVerti = new MotPositionne("riret",12,5,false);
+        verifTest.plateau.poserMot(riretVerti);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne quand il s'ajoute à la fin du mot De en (5,7) et forme Démanger
+    @Test
+    void verificationAdjacentDevantHoriTrue() {
+        MotPositionne deHori = new MotPositionne("de",5,7,true);
+        verifTest.plateau.poserMot(deHori);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne  pas quand il s'ajoute à la fin du mot Det en (4,7) et forme Détmanger
+    @Test
+    void verificationAdjacentDevantHoriFalse() {
+        MotPositionne detHori = new MotPositionne("det",4,7,true);
+        verifTest.plateau.poserMot(detHori);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec les mots adjacents en verticale Rire en (12,5) et Chanter en (8,5)
+    @Test
+    void verificationDeuxAdjacentHoriVertiMilieuTrue() {
+        MotPositionne rireVerti = new MotPositionne("rire",12,5,false);
+        MotPositionne chanterVerti = new MotPositionne("chanter",8,5,false);
+        verifTest.plateau.poserMot(rireVerti);
+        verifTest.plateau.poserMot(chanterVerti);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec les mots adjacents en verticale Rire en (12,5) et Chanter en (8,5)
+    @Test
+    void verificationDeuxAdjacentHoriVertiMilieuFalse() {
+        MotPositionne riretVerti = new MotPositionne("riret",12,5,false);
+        MotPositionne chantertVerti = new MotPositionne("chantert",8,5,false);
+        verifTest.plateau.poserMot(riretVerti);
+        verifTest.plateau.poserMot(chantertVerti);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec les mots adjacents en verticale Rire en (12,5) ,Chanter en (8,5) et N en (11,6)
+    @Test
+    void verificationTroisAdjacentHoriVertiMilieuTrue() {
+        MotPositionne rireVerti = new MotPositionne("rire",12,5,false);
+        MotPositionne chanterVerti = new MotPositionne("chanter",8,5,false);
+        verifTest.plateau.setValeurCasePlateau('n', 6, 11);
+        verifTest.plateau.poserMot(rireVerti);
+        verifTest.plateau.poserMot(chanterVerti);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec les mots adjacents en verticale Rire en (12,5) ,Chanter en (8,5) et B en (11,6)
+    @Test
+    void verificationTroisAdjacentHoriVertiMilieuFalse() {
+        MotPositionne rireVerti = new MotPositionne("rire",12,5,false);
+        MotPositionne chanterVerti = new MotPositionne("chanter",8,5,false);
+        verifTest.plateau.setValeurCasePlateau('b', 6, 11);
+        verifTest.plateau.poserMot(rireVerti);
+        verifTest.plateau.poserMot(chanterVerti);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec le mot adjacent Rire en horizontal en (7,12)
+    @Test
+    void verificationAdjacentVertiHoriTrue() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne rireHori = new MotPositionne("rire",7,12,true);
+        verifTest.plateau.poserMot(rireHori);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec le mot adjacent Riret en horizontal en (7,12)
+    @Test
+    void verificationAdjacentVertiHoriFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne riretHori = new MotPositionne("riret",7,12,true);
+        verifTest.plateau.poserMot(riretHori);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec le mot adjacent Rire en horizontal en (5,12)
+    @Test
+    void verificationAdjacentVertiHoriMilieuTrue() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne rireHori = new MotPositionne("rire",5,12,true);
+        verifTest.plateau.poserMot(rireHori);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec le mot adjacent Riret en horizontal en (5,12)
+    @Test
+    void verificationAdjacentVertiHoriMilieuFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne riretHori = new MotPositionne("riret",5,12,true);
+        verifTest.plateau.poserMot(riretHori);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne quand il s'ajoute à la fin du mot De en (7,5) et forme Démanger
+    @Test
+    void verificationAdjacentDevantVertiTrue() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne deVerti = new MotPositionne("de",7,5,false);
+        verifTest.plateau.poserMot(deVerti);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne  pas quand il s'ajoute à la fin du mot Det en (7,4) et forme Détmanger
+    @Test
+    void verificationAdjacentDevantVertiFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne detVerti = new MotPositionne("det",7,4,false);
+        verifTest.plateau.poserMot(detVerti);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas quand il s'ajoute au debut du mot N en (7,13) et forme Mangern
+    @Test
+    void verificationAdjacentDerriereVertiFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        verifTest.plateau.setValeurCasePlateau('n', 13, 7);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec les mots adjacents en horizontal Rire en (5,12) et Chanter en (5,8)
+    @Test
+    void verificationDeuxAdjacentVertiHoriMilieuTrue() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne rireHori = new MotPositionne("rire",5,12,true);
+        MotPositionne chanterHori = new MotPositionne("chanter",5,8,true);
+        verifTest.plateau.poserMot(rireHori);
+        verifTest.plateau.poserMot(chanterHori);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec les mots adjacents en horizontal Riret en (5,12) et Chantert en (5,8)
+    @Test
+    void verificationDeuxAdjacentVertiHoriMilieuFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne riretHori = new MotPositionne("riret",5,12,true);
+        MotPositionne chantertHori = new MotPositionne("chantert",5,8,true);
+        verifTest.plateau.poserMot(riretHori);
+        verifTest.plateau.poserMot(chantertHori);
+        assertFalse(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) fonctionne avec les mots adjacents en horizontal Rire en (5,12) ,Chanter en (5,8) et N en (6,11)
+    @Test
+    void verificationTroisAdjacentVertiHoriMilieuTrue() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne rireHori = new MotPositionne("rire",5,12,true);
+        MotPositionne chanterHori = new MotPositionne("chanter",5,8,true);
+        verifTest.plateau.setValeurCasePlateau('n', 11, 6);
+        verifTest.plateau.poserMot(rireHori);
+        verifTest.plateau.poserMot(chanterHori);
+        assertTrue(verifTest.verifMot());
+    }
+    //Test pour voir si le mot Manger en (7,7) ne fonctionne pas avec les mots adjacents en horizontal Rire en (5,12) ,Chanter en (5,8) et B en (6,11)
+    @Test
+    void verificationTroisAdjacentVertiHoriMilieuFalse() {
+        verifTest.motPosition.setHorizontal(false);
+        MotPositionne rireHori = new MotPositionne("rire",5,12,true);
+        MotPositionne chanterHori = new MotPositionne("chanter",5,8,true);
+        verifTest.plateau.setValeurCasePlateau('b', 11, 6);
+        verifTest.plateau.poserMot(rireHori);
+        verifTest.plateau.poserMot(chanterHori);
+        assertFalse(verifTest.verifMot());
+    }
     //Test pour voir si le mot qui commence par Z existe sans lettre sur le plateau en horizontale
     @Test
     void verificationTrueHoriZ(){
@@ -172,12 +349,8 @@ public class VerificationTests {
     //Test pour voir si le joueur pose le même mot sur un mot déjà posé sur le palteau
     @Test
     void verificationFalseMotDejaExistant() {
-        verifTest.plateau.setValeurCasePlateau('m', 7, 7);
-        verifTest.plateau.setValeurCasePlateau('a', 7, 8);
-        verifTest.plateau.setValeurCasePlateau('n', 7, 9);
-        verifTest.plateau.setValeurCasePlateau('g', 7, 10);
-        verifTest.plateau.setValeurCasePlateau('e', 7, 11);
-        verifTest.plateau.setValeurCasePlateau('r', 7, 12);
+        MotPositionne manger = new MotPositionne("manger",7,7,true);
+        verifTest.plateau.poserMot(manger);
         assertFalse(verifTest.verifMot());
     }
 }
