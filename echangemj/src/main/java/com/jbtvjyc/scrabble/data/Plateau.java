@@ -9,9 +9,9 @@ public class Plateau {
      */
     public Plateau() {
 
-        for(int x = 0; x < 14; x++)
+        for(int x = 0; x < 15; x++)
         {
-            for(int y = 0; y < 14; y++)
+            for(int y = 0; y < 15; y++)
             {
                 this.lePlateau[x][y] = new Case();
             }
@@ -159,15 +159,18 @@ public class Plateau {
 
         String plateauString = "";
 
-        for(int x = 0; x < 14; x++)
+        for(int x = 0; x < 16; x++)
         {
-            plateauString += "[";
-            for(int y = 0; y < 14; y++)
+            plateauString += "[" + (x-1 > 9 ? x-1 : x == 0 ? "00" :"0"+(x-1));
+            for(int y = 0; y < 15; y++)
             {
-                plateauString += this.lePlateau[x][y].getValeur() != Character.MIN_VALUE
-                        ? "|" + this.lePlateau[x][y].getValeur()
-                        :"|" + " ";
-
+                if (x == 0) {
+                    plateauString += "|" + (y > 9 ? y : "0"+y);
+                } else {
+                    plateauString += this.lePlateau[x-1][y].getValeur() != Character.MIN_VALUE
+                            ? "|" + this.lePlateau[x-1][y].getValeur() + " "
+                            : "|" + "  ";
+                }
             }
             plateauString += "]\n";
 

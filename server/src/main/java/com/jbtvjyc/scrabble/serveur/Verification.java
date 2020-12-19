@@ -46,7 +46,7 @@ public class Verification {
         return positions;
     }
     public boolean verifMotAdjacent(){
-        int posX =motPosition.getAbscisse();
+        int posX = motPosition.getAbscisse();
         int posY = motPosition.getOrdonnee();
         int pos=1;
         String motBase = this.mot;
@@ -74,7 +74,7 @@ public class Verification {
                     pos +=1;
                 }
                 pos = 1;
-                while(posY-pos <= 14 && plateau.getCase(posY+pos, posX+i).getValeur() != Character.MIN_VALUE){
+                while(posY+pos <= 14 && plateau.getCase(posY+pos, posX+i).getValeur() != Character.MIN_VALUE){
                     motAdjacent = motAdjacent + Character.toLowerCase(plateau.getCase(posY+pos, posX+i).getValeur());
                     pos +=1;
                 }
@@ -108,7 +108,7 @@ public class Verification {
                         pos +=1;
                     }
                     pos = 1;
-                    while(posX-pos <= 14 && plateau.getCase(posY+i, posX+pos).getValeur() != Character.MIN_VALUE){
+                    while(posX+pos <= 14 && plateau.getCase(posY+i, posX+pos).getValeur() != Character.MIN_VALUE){
                         motAdjacent = motAdjacent + Character.toLowerCase(plateau.getCase(posY+i, posX+pos).getValeur());
                         pos +=1;
                     }
