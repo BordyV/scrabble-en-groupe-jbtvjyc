@@ -113,14 +113,16 @@ public class Client {
         int x = 7, y = 7;
         String bestMot = null;
         int bestScore = 0;
+        String bestMot_final = null;
         boolean horizontal = true;
+        boolean posable = false;
 
         MotPositionne resultat = null;
         if(etatDuJeu.getPlateau().getCase(y, x).getValeur() == Character.MIN_VALUE){
             return trouverMot(etatDuJeu,listeDeMots);
         }else{
             int lettre_plateau_x = 0, lettre_plateau_y = 0;
-
+            int x_final = 0, y_final = 0;
             for (int i = 0; i < 14; i++){
                 for (int j = 0; j < 14; j++){
 
@@ -156,61 +158,80 @@ public class Client {
 
                                 score += etatDuJeu.getPlateau().getScore(c);
                             }
+
+
                             if (score > bestScore) {
-                                bestScore = score;
-                                bestMot = mot;
                                 lettre_plateau_x = i;
                                 lettre_plateau_y = j;
+                                //bestScore = score;
+                                bestMot = mot;
+
+                                //On regarde si le mot doit etre positionné de maniere vertical ou horizontal
+                                if((lettre_plateau_x > 0 && lettre_plateau_x < 14) ){
+                                    if(etatDuJeu.getPlateau().getCase(j,i-1).getValeur() != Character.MIN_VALUE || etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                        horizontal = false;
+                                        //System.out.println("Position j et i de "+etatDuJeu.getPlateau().getCase(j,i).getValeur()+" : "+ j +" et "+ i);
+                                    }
+                                }else if(lettre_plateau_x == 0){
+                                    if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                        horizontal = false;
+                                    }
+                                }else if(lettre_plateau_x == 14){
+                                    if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
+                                        horizontal = false;
+                                    }
+                                }
+
+                                //On veut avoir la position x et y du mots a poser
+                                int positionLettrePlateauDansMot = 0;
+                                String leMotAPlacer = bestMot;
+                                for(char laLettre : leMotAPlacer.toCharArray()){
+                                    if(etatDuJeu.getPlateau().getCase(lettre_plateau_y,lettre_plateau_x).getValeur() == laLettre){
+                                        break;
+                                    }
+                                    positionLettrePlateauDansMot++;
+                                }
+
+                                if(horizontal == true){
+                                    //resultat = new MotPositionne(bestMot, lettre_plateau_x-positionLettrePlateauDansMot, lettre_plateau_y, horizontal);
+                                    x_final = lettre_plateau_x-positionLettrePlateauDansMot;
+                                    y_final = lettre_plateau_y;
+                                    if( (x_final < 14 && x_final>= 0) && (y_final < 14 && y_final>= 0)){
+                                        posable = true;
+                                    }
+                                }else {
+                                    //resultat = new MotPositionne(bestMot, lettre_plateau_x, lettre_plateau_y-positionLettrePlateauDansMot, horizontal);
+                                    x_final = lettre_plateau_x;
+                                    y_final = lettre_plateau_y-positionLettrePlateauDansMot;
+                                    if( (x_final < 14 && x_final>= 0) && (y_final < 14 && y_final>= 0)){
+                                        posable = true;
+                                    }
+                                }
+
+                                if(posable == true){
+                                    bestScore = score;
+                                    bestMot_final = bestMot;
+                                    //System.out.println("jai Trouver ! : "+bestMot_final+ " en : "+ x_final + " et " + y_final);
+                                    resultat = new MotPositionne(bestMot_final, x_final, y_final, horizontal);
+                                    posable = false;
+                                }
+
                             }
+
                         }
+
                         currInventaire.remove(currInventaire.size()-1);
 
                         if (bestMot == null) {
-                            //return null;
-                        }
-
-                        //On regarde si le mot doit etre positionné de maniere vertical ou horizontal
-
-                        if((lettre_plateau_x > 0 && lettre_plateau_x < 14) ){
-                            if(etatDuJeu.getPlateau().getCase(j,i-1).getValeur() != Character.MIN_VALUE || etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
-                            horizontal = false;
-                            //System.out.println("Position j et i de "+etatDuJeu.getPlateau().getCase(j,i).getValeur()+" : "+ j +" et "+ i);
-                            }
-                        }else if(lettre_plateau_x == 0){
-                            if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
-                                horizontal = false;
-                            }
-                        }else if(lettre_plateau_x == 14){
-                            if(etatDuJeu.getPlateau().getCase(j,i+1).getValeur() != Character.MIN_VALUE){
-                                horizontal = false;
-                            }
-                        }
-
-                        //On veut avoir la position x et y du mots a poser
-                        int positionLettrePlateauDansMot = 0;
-                        String leMotAPlacer = bestMot;
-                        for(char laLettre : leMotAPlacer.toCharArray()){
-                            if(etatDuJeu.getPlateau().getCase(lettre_plateau_y,lettre_plateau_x).getValeur() == laLettre){
-                                break;
-                            }
-                            positionLettrePlateauDansMot++;
-                        }
-
-                        if(horizontal == true){
-                            resultat = new MotPositionne(bestMot, lettre_plateau_x-positionLettrePlateauDansMot, lettre_plateau_y, horizontal);
-                        }else {
-                            resultat = new MotPositionne(bestMot, lettre_plateau_x, lettre_plateau_y-positionLettrePlateauDansMot, horizontal);
+                            return null;
                         }
                     }
-
-                    }
-
                 }
             }
-            System.out.println("J'ai trouver : "+resultat.toString());
-            return resultat;
         }
-
-
+        //System.out.println("J'ai trouver : "+resultat.toString());
+        return resultat;
     }
+
+}
 

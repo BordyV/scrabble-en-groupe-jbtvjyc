@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClientTest {
 
@@ -109,8 +108,36 @@ class ClientTest {
         this.etatDuJeu.getPlateau().poserMot(motAPoserVer);
 
         MotPositionne motTrouve = this.client.trouverMotAvecPlateau(this.etatDuJeu, this.mots.getListeDeMots());
+        //System.out.println("Le mot trouver est: "+motTrouve.toString());
         assertEquals("abaisse", motTrouve.getMot());
 
+    }
+
+    @Test
+    void trouverMotAvecPlateauTestEchec() {
+        ArrayList<Character> chariot = new ArrayList<Character>();
+        chariot.add('a');
+        chariot.add('b');
+        chariot.add('a');
+        chariot.add('i');
+        chariot.add('s');
+        chariot.add('s');
+        //chariot.add('e');
+        //etat du jeu n'aura plus le chariot donc on passera par l'inventaire
+        //l'inventaire sera peutetre dans l'état du jeu
+        this.inventaire.setLettres(chariot);
+        //TODO A enlever lorsque la class etat du jeu aura l'inventaire
+        this.etatDuJeu.setChariot(chariot);
+
+        MotPositionne motAPoserVerInitial = new MotPositionne("z", 7, 7, false);
+        this.etatDuJeu.getPlateau().poserMot(motAPoserVerInitial);
+
+        MotPositionne motAPoserVer = new MotPositionne("chameau", 0, 0, false);
+        this.etatDuJeu.getPlateau().poserMot(motAPoserVer);
+
+        MotPositionne motTrouve = this.client.trouverMotAvecPlateau(this.etatDuJeu, this.mots.getListeDeMots());
+        System.out.println("Le mot trouver est: "+motTrouve.toString());
+        assertNotEquals("abaisse", motTrouve.getMot());
     }
 
 }
