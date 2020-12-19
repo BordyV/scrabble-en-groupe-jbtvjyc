@@ -9,6 +9,10 @@
         <version>0.0.1</version>
     </parent>
 
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../devtools/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
+
     <artifactId>client</artifactId>
     <version>0.0.1</version>
 
