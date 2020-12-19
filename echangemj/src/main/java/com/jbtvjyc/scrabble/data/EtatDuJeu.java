@@ -1,10 +1,10 @@
 package com.jbtvjyc.scrabble.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class EtatDuJeu {
-    ArrayList<MotPositionne> listeDeMots;
+    List<MotPositionne> listeDeMots;
     Plateau plateau;
     Inventaire inventaire;
 
@@ -23,14 +23,13 @@ public class EtatDuJeu {
     public EtatDuJeu(Plateau plateau) {
         this.listeDeMots = new ArrayList<>();
         this.plateau = plateau;
-        this.inventaire = inventaire;
     }
 
-    public ArrayList<MotPositionne> getListeDeMots() {
+    public List<MotPositionne> getListeDeMots() {
         return this.listeDeMots;
     }
 
-    public void setListeDeMots(ArrayList<MotPositionne> listeDeMots) {
+    public void setListeDeMots(List<MotPositionne> listeDeMots) {
         this.listeDeMots = listeDeMots;
     }
 
