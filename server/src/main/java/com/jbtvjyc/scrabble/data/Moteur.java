@@ -17,6 +17,7 @@ public class Moteur implements Runnable {
 
     EtatDuJeu etatDuJeu;
     Mots lesMotsPossibles;
+    private boolean exitOnFinish = false;
 
     public void lancerPartie() {
         if (this.partie == null) {
@@ -53,7 +54,13 @@ public class Moteur implements Runnable {
 
         this.ctrl.envoyerFin();
         // fin brutale (pour abréger sur travis).
-        System.exit(0);
+        if (getExitOnFinish()) System.exit(0);
+    }
+    public void setExitOnFinish(boolean exitOnFinish) {
+        this.exitOnFinish = exitOnFinish;
+    }
+    public boolean getExitOnFinish() {
+        return this.exitOnFinish;
     }
 
 

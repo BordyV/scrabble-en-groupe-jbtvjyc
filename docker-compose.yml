@@ -4,8 +4,8 @@ services:
 
 
   serveur:
-    image: jbtvjyc:serveur
-    container_name: serveur
+    image: jbtvjyc:server
+    container_name: server
     networks:
       testing_net:
         ipv4_address: 172.28.0.253
@@ -14,12 +14,12 @@ services:
 
   client:
     image: jbtvjyc:client
-    # container_name: client
+    container_name: client
     environment:
       - SERVER_IP=172.28.0.253
     networks:
       testing_net:
-      #  ipv4_address: 172.28.0.3
+        ipv4_address: 172.28.0.3
 
 
 
