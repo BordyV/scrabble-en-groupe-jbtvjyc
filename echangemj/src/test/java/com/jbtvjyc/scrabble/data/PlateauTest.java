@@ -42,6 +42,7 @@ class PlateauTest {
 
         plateau.poserMot(motAPoserHor);
         //le mot poser est "kaleidoscope" on test donc le debut et la fin
+        System.out.println(plateau);
         Assertions.assertEquals('k', plateau.getCase(0,0).getValeur());
         Assertions.assertEquals('e', plateau.getCase(0,11).getValeur());
     }

@@ -1,8 +1,6 @@
 package com.jbtvjyc.scrabble.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Inventaire {
     List<Character> lettres;
@@ -24,6 +22,22 @@ public class Inventaire {
     public void ajouterLettres(Character... lettres) {
         this.lettres.addAll(Arrays.asList(lettres));
     }
+
+    public void enleverLettres(List<Character> lettresSupp) {
+
+        List<Character> copyLettresSupp = new ArrayList<>();
+        copyLettresSupp.addAll(lettresSupp);
+
+        for (Character lettreASupp: copyLettresSupp) {
+            for (Character lettreInv : this.lettres) {
+                if(lettreASupp.charValue() == lettreInv.charValue()){
+                    this.lettres.remove(lettreInv);
+                    break;
+                }
+            }
+        }
+    }
+
 
     public int getScore() {
         return this.score;

@@ -16,7 +16,7 @@ class ClientTest {
 
     @BeforeEach
     void setup() {
-        this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire());
+        this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire(), new Pioche());
         this.mots = new Mots();
         this.client = new Client();
     }
