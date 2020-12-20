@@ -53,7 +53,7 @@ public class MoteurWebControlleurITCase {
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(5000);
+            TimeUnit.MILLISECONDS.sleep(9000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -61,14 +61,14 @@ public class MoteurWebControlleurITCase {
 
         verify(mSpy, times(1)).lancerPartie();
 
-        verify(webControlleur, times(40)).demanderAuJoueurDeJouer(any());
+        verify(webControlleur, times(100)).demanderAuJoueurDeJouer(any());
         verify(webControlleur, times(1)).envoyerFin();
 
         // TODO Il faudrait réussir à faire placer un certain nombre de mots sur le plateau pour le tester
         // EtatDuJeu plateau = mSpy.getEtatDuJeu();
         // assertEquals(2, plateau.getListeDeMots().size());
 
-        verify(mSpy, times(40)).getEtatDuJeu();
+        verify(mSpy, times(100)).getEtatDuJeu();
         // error to verify it is a good spy // verify(mSpy, times(16)).aMethod();
 
         // normalement, à la fin le client est éteint
@@ -91,7 +91,7 @@ public class MoteurWebControlleurITCase {
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(5000);
+            TimeUnit.MILLISECONDS.sleep(9000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,14 +99,14 @@ public class MoteurWebControlleurITCase {
 
         // 2 fois lancerPartie, mais une seule avec effet... comme c'est un sout, on ne peut pas vérfier la 2e fois si ce n'est que le reste ne change pas
         verify(mSpy, times(2)).lancerPartie();
-        verify(webControlleur, times(40)).demanderAuJoueurDeJouer(any());
+        verify(webControlleur, times(100)).demanderAuJoueurDeJouer(any());
         verify(webControlleur, times(1)).envoyerFin();
 
         // TODO Pareil que demanderAuJoueurDeJoueurTest
         // EtatDuJeu plateau = mSpy.getEtatDuJeu();
         // assertEquals(2, plateau.getListeDeMots().size());
 
-        verify(mSpy, times(40)).getEtatDuJeu();
+        verify(mSpy, times(100)).getEtatDuJeu();
         // error to verify it is a good spy // verify(mSpy, times(16)).aMethod();
 
         // normalement, à la fin le client est éteint
