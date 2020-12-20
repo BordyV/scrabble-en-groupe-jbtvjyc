@@ -26,9 +26,11 @@ public class ClientApplication implements WebServerFactoryCustomizer<Configurabl
     public CommandLineRunner unClient(RestTemplate restTemplateClient) {
         return args -> {
             //connexion
+            if((args.length > 0) && args[0].equals("autoconnect")) {
             Identification ident = new Identification("Mopolo le roi des mots", "http://localhost:8081/");
             Boolean etatConnexion = restTemplateClient.postForObject("http://localhost:8080/connexion/", ident, Boolean.class);
             System.out.println("etat de la connexion -> " + etatConnexion);
+            }
         };
     }
 

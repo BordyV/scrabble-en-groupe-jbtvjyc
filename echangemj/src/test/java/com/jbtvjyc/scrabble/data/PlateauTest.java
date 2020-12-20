@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PlateauTest {
+class PlateauTest {
 
     Case laCase;
     Case laCaseMD;
@@ -15,8 +14,8 @@ public class PlateauTest {
 
     @BeforeEach
     void setUp() {
-        laCase = new Case(Bonus.MotTriple);
-        laCaseMD = new Case(Bonus.MotDouble);
+        laCase = new Case(Bonus.MOTTRIPLE);
+        laCaseMD = new Case(Bonus.MOTDOUBLE);
         motAPoserHor = new MotPositionne("kaleidoscope", 0, 0, true);
         motAPoserVer = new MotPositionne("chameau", 7, 7, false);
 
@@ -25,7 +24,7 @@ public class PlateauTest {
     void creationPlateauTest() {
         Plateau plateau = new Plateau();
 
-        Assertions.assertEquals(plateau.getLePlateau().length, 15);
+        Assertions.assertEquals(15,plateau.getLePlateau().length);
     }
 
     @Test
@@ -43,6 +42,7 @@ public class PlateauTest {
 
         plateau.poserMot(motAPoserHor);
         //le mot poser est "kaleidoscope" on test donc le debut et la fin
+        System.out.println(plateau);
         Assertions.assertEquals('k', plateau.getCase(0,0).getValeur());
         Assertions.assertEquals('e', plateau.getCase(0,11).getValeur());
     }

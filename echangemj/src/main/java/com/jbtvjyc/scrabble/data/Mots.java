@@ -1,7 +1,5 @@
 package com.jbtvjyc.scrabble.data;
 
-import org.yaml.snakeyaml.util.ArrayUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,19 +7,20 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 
 public class Mots {
 
     private String fileName;
     private Hashtable<Character,Integer> associationAlphabetiqueLigne;
-    private ArrayList<String> listeDeMots;
+    private List<String> listeDeMots;
 
 
     public Mots(){
         this.fileName = "mots_francais_pur_utf-8.txt";
-        this.listeDeMots = new ArrayList<String>();
-        this.associationAlphabetiqueLigne = new Hashtable<Character,Integer>();
+        this.listeDeMots = new ArrayList<>();
+        this.associationAlphabetiqueLigne = new Hashtable<>();
         generationMots();
     }
 
@@ -62,7 +61,7 @@ public class Mots {
             indexFinRecherche = this.associationAlphabetiqueLigne.get((char)(lettreDebut+1));
         }
         for (int i = indexDebutRecherche; i < indexFinRecherche; i++){
-            if(leMot.toLowerCase().equals(this.listeDeMots.get(i))){
+            if(leMot.equalsIgnoreCase(this.listeDeMots.get(i))){
                 return true;
             }
         }
@@ -78,7 +77,7 @@ public class Mots {
         return associationAlphabetiqueLigne;
     }
 
-    public ArrayList<String> getListeDeMots() {
+    public List<String> getListeDeMots() {
         return listeDeMots;
     }
 }
