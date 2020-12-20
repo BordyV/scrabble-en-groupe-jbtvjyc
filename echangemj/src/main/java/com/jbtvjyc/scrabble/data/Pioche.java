@@ -96,7 +96,6 @@ public class Pioche {
             lettreTrouvee = alphabet[index];
         } while (this.lettreVide(index));
         int newVal = this.sac.get(index)-1;
-        System.out.println();
         this.sac.set(index, newVal);
         this.setTailleDuSac(this.getTailleDuSac()-1);
         //System.out.println("Vous avez pioché un "+ lettreTrouvee + ", il en reste " + newVal +".");
