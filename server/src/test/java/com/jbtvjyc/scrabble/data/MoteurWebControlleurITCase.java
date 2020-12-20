@@ -91,7 +91,7 @@ public class MoteurWebControlleurITCase {
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(3000);
+            TimeUnit.MILLISECONDS.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
