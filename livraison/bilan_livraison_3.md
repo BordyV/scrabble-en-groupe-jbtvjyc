@@ -15,6 +15,8 @@ Pour cette itération nous avons donc décidé de faire dans les grandes lignes:
 Même si l'objectif de ce rendu était ce que nous venons de citer, nous avons sous-éstimé une tache: le comptage des points.
 Le comptage des points était prévu pour ce rendu mais n'est pas fini.
  Il sera fini pour la prochaine itération.
+ 
+Nous avons aussi remarqué un bug provenant du choix du mot côté Client, il faudra le corriger.
 
 ce qui manque pour l'iteration: 
 
