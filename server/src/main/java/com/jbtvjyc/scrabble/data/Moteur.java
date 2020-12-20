@@ -34,22 +34,26 @@ public class Moteur implements Runnable {
 
     @Override
     public void run() {
-        for(int nbTour = 0; nbTour < 40; nbTour++) {
-            this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
-            this.etatDuJeu.ajouterLettres('a','b','a','i','s','s','e');
+        for(int nbTour = 0; nbTour < 100; nbTour++) {
+            if(nbTour ==0 ) {
+                this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
+                this.etatDuJeu.piocherLettre();
+            }
             MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
             if(motJoue != null)
                 this.verification = new Verification(this.etatDuJeu.getInventaire().getLettres(), motJoue,this.etatDuJeu.getPlateau(), this.lesMotsPossibles);
 
             //si la verification du mot marche
             if(motJoue != null && this.verification.verifMot()) {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue + " ( la verification n'est pas totale )");
+                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue);
                 this.etatDuJeu.addMotPlace(motJoue);
             } else if (motJoue != null) {
-                // TODO DEMANDER AU JOUEUR DE REJOUER
+                //TODO DEMANDER S'IL VEUT CHANGER SES LETTRES OU RETENTER QUELQUE CHOSE
                 System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas pu jouer car son mot n'est pas posable ou possible");
             } else {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas trouver de mot et passe son tour");
+                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas trouver de mot et pioche ");
+                //TODO DEMANDER AU JOUEUR QUELLES LETTRES IL DOIT CHANGER
+                this.etatDuJeu.changerLettres();
             }
         }
         System.out.println(this.etatDuJeu.getPlateau());

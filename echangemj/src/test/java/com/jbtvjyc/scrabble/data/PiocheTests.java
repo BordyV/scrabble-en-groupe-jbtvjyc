@@ -3,6 +3,9 @@ package com.jbtvjyc.scrabble.data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 class PiocheTests {
 
@@ -10,6 +13,42 @@ class PiocheTests {
     void testInitialisationTailleDuSac() {
         Pioche pioche = new Pioche();
         Assertions.assertEquals( 100, pioche.getTailleDuSac());
+    }
+
+    @Test
+    void rendreUneLettreTest() {
+        Pioche pioche = new Pioche();
+        //12 est la lettre m
+        pioche.getSac().set(12,0);
+        Assertions.assertEquals(0 , pioche.getSac().get(12));
+
+        pioche.rendreUneLettre('m');
+        Assertions.assertEquals(1,pioche.getSac().get(12));
+    }
+
+
+    @Test
+    void rendrePlusieursLettresTest() {
+        Pioche pioche = new Pioche();
+        //12 est la lettre m
+        pioche.getSac().set(12,0);
+        Assertions.assertEquals(0 , pioche.getSac().get(12));
+        //25 est la lettre z
+        pioche.getSac().set(25,0);
+        Assertions.assertEquals(0 , pioche.getSac().get(25));
+
+        //taille du sac -3(m) + -1(z)
+        pioche.setTailleDuSac(96);
+
+        List<Character> lettresARendre = new ArrayList<Character>();
+        lettresARendre.add('m');
+        lettresARendre.add('z');
+
+        //on rend la lettre m et z
+        pioche.rendrePlusieursLettres(lettresARendre);
+        Assertions.assertEquals(1,pioche.getSac().get(12));
+        Assertions.assertEquals(1,pioche.getSac().get(25));
+        Assertions.assertEquals(98, pioche.getTailleDuSac());
     }
 
     @Test

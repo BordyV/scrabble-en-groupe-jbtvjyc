@@ -84,6 +84,7 @@ public class Pioche {
         for (int i = tailleInitialDuChario; i < tailleInitialDuChario+ndDeLettres; i++){
             etatDuJeu.getInventaire().getLettres().add(i, piocherUneLettre());
         }
+        System.out.println("Pieces restantes : " + this.getTailleDuSac());
     }
 
     public char piocherUneLettre() {
@@ -98,13 +99,36 @@ public class Pioche {
         System.out.println();
         this.sac.set(index, newVal);
         this.setTailleDuSac(this.getTailleDuSac()-1);
-        System.out.println("Vous avez pioché un "+ lettreTrouvee + ", il en reste " + newVal +".");
-        System.out.println("Pieces restantes : " + this.getTailleDuSac());
+        //System.out.println("Vous avez pioché un "+ lettreTrouvee + ", il en reste " + newVal +".");
         if (this.tailleDuSac == 0) {
             this.setSacVide();
             System.out.println("Le sac est vide.");
         }
         return lettreTrouvee;
+    }
+
+    /**
+     * la lettre est rendu soit rajouté au sac
+     * @param lettreAjouter
+     */
+    public void rendreUneLettre(Character lettreAjouter) {
+        for (int i = 0; i < alphabet.length; i++) {
+            if(((Character) alphabet[i]).charValue() == lettreAjouter) {
+                this.setTailleDuSac(this.getTailleDuSac()+1);
+                this.sac.set(i, this.sac.get(i) + 1);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Rendre plusieurs lettres dans le sac
+     * @param lettreARendre
+     */
+    public void rendrePlusieursLettres(List<Character> lettreARendre) {
+        for (Character lettre : lettreARendre){
+            this.rendreUneLettre(lettre);
+        }
     }
 
     public boolean lettreVide(int index) {
