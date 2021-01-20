@@ -146,6 +146,7 @@ public class Plateau {
      * Permet de connaitre le score d'un char donné
      */
     public int getScoreCase(Case laCase) {
+        //System.out.println("valeur de la case : " + laCase.getValeur());
         int bonusLettre = 1;
         if(laCase.getBonusActif() || laCase.getCaseCommune()) {
             if(laCase.getBonus()==Bonus.LETTREDOUBLE){
@@ -175,25 +176,21 @@ public class Plateau {
         int curseurMotsAccoles = 0;
         Case[] casesCommunesMotsAccoles = new Case[15];
         MotPositionne[] motAccolesTrouves = new MotPositionne[15];
-        Integer[] bonusCaseCommune = new Integer[15];//0 si pas de bonus, 1 si bonus lettreDouble, 2 si bonus lettreTriple, 3 si bonus motDouble et 4 bonus MotTriple
-        System.out.println("calcule du score du mot "+mot.getMot());
+        System.out.println("calcule du score du mot "+mot.getMot()+" "+mot.getAbscisse()+" "+mot.getOrdonnee());
         for(int i = 0; i<tableauDeChar.length; i++){
             Case caseTmp;
             int abscisseTmp;
             int ordonneeTmp;
             boolean motTrouve = false;
             String motTmp = "";
+            //si le mot est horizontal
             if(horizontal){
-                if(abscisse+i>14){
-                    abscisseTmp = abscisse;
-                } else {
-                    abscisseTmp = abscisse+i;
-                }
+                abscisseTmp = abscisse+i;
                 ordonneeTmp = ordonnee;
                 caseTmp = this.lePlateau[ordonneeTmp][abscisseTmp];
                 if(caseTmp.getCasePasTrouve() && ordonneeTmp>=0 && ordonneeTmp<=14 && this.lePlateau[ordonneeTmp][abscisseTmp].getCasePasTrouve()){
                     casesCommunesMotsAccoles[curseurMotsAccoles]=this.lePlateau[ordonneeTmp][abscisseTmp];
-                    int ordonneeDebutMot = 0;
+                    int ordonneeDebutMot = ordonneeTmp;
                     if(ordonneeTmp>0 && this.lePlateau[ordonneeTmp-1][abscisseTmp].getValeur()!=Character.MIN_VALUE){
                         int j = 0;
                         while (ordonneeTmp-j>=0 && this.lePlateau[ordonneeTmp-j][abscisseTmp].getValeur()!=Character.MIN_VALUE) {
@@ -209,31 +206,28 @@ public class Plateau {
                         while (ordonneeTmp+j<=14 && this.lePlateau[ordonneeTmp+j][abscisseTmp].getValeur()!=Character.MIN_VALUE) {
                             char valeurTmp = this.lePlateau[ordonneeTmp+j][abscisseTmp].getValeur();
                             motTmp = motTmp+valeurTmp;
-                            ordonneeDebutMot=ordonneeTmp+j;
+                            //ordonneeDebutMot=ordonneeTmp+j;
                             j++;
                         }
                         motTrouve = true;
                     }
                     if (motTrouve) {
                         motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseTmp,  ordonneeDebutMot, false);
-                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot());
+                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
                         this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
                         caseTmp.setCaseCommune(true);
                         curseurMotsAccoles++;
                     }
                 }
             }
+            //si le mot est vertical
             else {
                 abscisseTmp = abscisse;
-                if(ordonnee+i>14){
-                    ordonneeTmp = ordonnee;
-                } else {
-                    ordonneeTmp = ordonnee+i;
-                }
+                ordonneeTmp = ordonnee+i;
                 caseTmp = this.lePlateau[ordonneeTmp][abscisseTmp];
                 if(caseTmp.getCasePasTrouve() && abscisseTmp>=0 && abscisseTmp<=14 && this.lePlateau[ordonneeTmp][abscisseTmp].getCasePasTrouve()){
                     casesCommunesMotsAccoles[curseurMotsAccoles]=this.lePlateau[ordonneeTmp][abscisseTmp];
-                    int abscisseDebutMot = 0;
+                    int abscisseDebutMot = abscisseTmp;
                     if(abscisseTmp>0 && this.lePlateau[ordonneeTmp][abscisseTmp-1].getValeur()!=Character.MIN_VALUE){
                         int j = 0;
                         while (abscisseTmp-j>=0 && this.lePlateau[ordonneeTmp][abscisseTmp-j].getValeur()!=Character.MIN_VALUE) {
@@ -249,14 +243,14 @@ public class Plateau {
                         while (abscisseTmp+j<=14 && this.lePlateau[ordonneeTmp][abscisseTmp+j].getValeur()!=Character.MIN_VALUE) {
                             char valeurTmp = this.lePlateau[ordonneeTmp][abscisseTmp+j].getValeur();
                             motTmp = motTmp+valeurTmp;
-                            abscisseDebutMot=abscisseTmp+j;
+                            //abscisseDebutMot=abscisseTmp+j;
                             j++;
                         }
                         motTrouve = true;
                     }
                     if (motTrouve) {
                         motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseDebutMot,  ordonneeTmp, true);
-                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot());
+                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
                         this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
                         caseTmp.setCaseCommune(true);
                         curseurMotsAccoles++;
@@ -264,6 +258,7 @@ public class Plateau {
                 }
             }
             for(int j = 0; j<curseurMotsAccoles; j++) {
+                System.out.println(j);
                 scoreMotAccolesTrouves+=getScoreMot(motAccolesTrouves[j]);
             }
             scoreTmp += getScoreCase(caseTmp);
@@ -278,6 +273,9 @@ public class Plateau {
                 }
             }
             caseTmp.setBonusPlusActif();
+            curseurMotsAccoles = 0;
+            casesCommunesMotsAccoles = new Case[15];
+            motAccolesTrouves = new MotPositionne[15];
         }
         int scoreTotal=scoreMotAccolesTrouves+scoreTmp*bonusMot;
         System.out.println("score mots accoles : "+scoreMotAccolesTrouves);

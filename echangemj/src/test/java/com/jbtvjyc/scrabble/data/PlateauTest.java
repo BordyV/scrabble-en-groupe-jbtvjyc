@@ -153,7 +153,43 @@ public class PlateauTest {
         plateau.poserMot(motAPoser2);
         plateau.poserMot(motAPoser3);
         int scoreMot5=plateau.poserMot(motAPoser4);
-        //System.out.println(plateau);
+        System.out.println(plateau);
+        Assertions.assertEquals(8, scoreMot5);
+
+        plateau = new Plateau();
+        motAPoser2 = new MotPositionne("test", 0, 13, true);
+        motAPoser3 = new MotPositionne("ta", 0, 13, false);
+        motAPoser4 = new MotPositionne("an", 0, 14, true);
+        plateau.poserMot(motAPoser2);
+        plateau.poserMot(motAPoser3);
+        scoreMot5=plateau.poserMot(motAPoser4);
+        System.out.println(plateau);
+        Assertions.assertEquals(4, scoreMot5);
+
+        plateau = new Plateau();
+        motAPoser2 = new MotPositionne("roi", 4, 5, false);
+        motAPoser3 = new MotPositionne("feu", 3, 7, false);
+        plateau.poserMot(motAPoser2);
+        scoreMot5=plateau.poserMot(motAPoser3);
+        System.out.println(plateau);
+        Assertions.assertEquals(19, scoreMot5);
+
+        plateau = new Plateau();
+        motAPoser2 = new MotPositionne("roi", 5, 4, true);
+        motAPoser3 = new MotPositionne("feu", 7, 3, true);
+        plateau.poserMot(motAPoser2);
+        scoreMot5=plateau.poserMot(motAPoser3);
+        System.out.println(plateau);
+        Assertions.assertEquals(19, scoreMot5);
+
+        plateau = new Plateau();
+        motAPoser2 = new MotPositionne("test", 11, 0, true);
+        motAPoser3 = new MotPositionne("ta", 14, 0, false);
+        motAPoser4 = new MotPositionne("na", 13, 1, true);
+        plateau.poserMot(motAPoser2);
+        plateau.poserMot(motAPoser3);
+        scoreMot5=plateau.poserMot(motAPoser4);
+        System.out.println(plateau);
         Assertions.assertEquals(8, scoreMot5);
 
         plateau = new Plateau();
@@ -163,7 +199,7 @@ public class PlateauTest {
         plateau.poserMot(motAPoser2);
         plateau.poserMot(motAPoser3);
         scoreMot5=plateau.poserMot(motAPoser4);
-        //System.out.println(plateau);
+        System.out.println(plateau);
         Assertions.assertEquals(4, scoreMot5);
 
         plateau = new Plateau();
@@ -173,17 +209,17 @@ public class PlateauTest {
         plateau.poserMot(motAPoser2);
         plateau.poserMot(motAPoser3);
         scoreMot5=plateau.poserMot(motAPoser4);
-        //System.out.println(plateau);
+        System.out.println(plateau);
         Assertions.assertEquals(8, scoreMot5);
 
         plateau = new Plateau();
         motAPoser2 = new MotPositionne("test", 14, 11, false);
-        motAPoser3 = new MotPositionne("at", 13, 14, true);
-        motAPoser4 = new MotPositionne("na", 13, 13, false);
+        motAPoser3 = new MotPositionne("at", 13, 11, true);
+        motAPoser4 = new MotPositionne("an", 13, 11, false);
         plateau.poserMot(motAPoser2);
         plateau.poserMot(motAPoser3);
         scoreMot5=plateau.poserMot(motAPoser4);
-        //System.out.println(plateau);
-        Assertions.assertEquals(8, scoreMot5);
+        System.out.println(plateau);
+        Assertions.assertEquals(4, scoreMot5);
     }
 }
