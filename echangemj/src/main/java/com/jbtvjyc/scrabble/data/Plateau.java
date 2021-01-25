@@ -166,6 +166,7 @@ public class Plateau {
      * Permet de connaitre le score d'un mot donné
      */
     public int getScoreMot(MotPositionne mot) {
+        int nbDeLettresPlacees = 0;
         int abscisse = mot.getAbscisse();
         int ordonnee = mot.getOrdonnee();
         boolean horizontal = mot.getHorizontal();
@@ -213,7 +214,7 @@ public class Plateau {
                     }
                     if (motTrouve) {
                         motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseTmp,  ordonneeDebutMot, false);
-                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
+                        //System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
                         this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
                         caseTmp.setCaseCommune(true);
                         curseurMotsAccoles++;
@@ -250,7 +251,7 @@ public class Plateau {
                     }
                     if (motTrouve) {
                         motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseDebutMot,  ordonneeTmp, true);
-                        System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
+                        //System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
                         this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
                         caseTmp.setCaseCommune(true);
                         curseurMotsAccoles++;
@@ -272,13 +273,20 @@ public class Plateau {
                     }
                 }
             }
+            if (caseTmp.getBonusActif()) {
+                nbDeLettresPlacees++;
+            }
             caseTmp.setBonusPlusActif();
             curseurMotsAccoles = 0;
             casesCommunesMotsAccoles = new Case[15];
             motAccolesTrouves = new MotPositionne[15];
         }
         int scoreTotal=scoreMotAccolesTrouves+scoreTmp*bonusMot;
-        System.out.println("score mots accoles : "+scoreMotAccolesTrouves);
+        //System.out.println("nombre de nouvelles lettres placees : "+nbDeLettresPlacees);
+        if (nbDeLettresPlacees == 7) {
+            scoreTotal += 50;
+        }
+        //System.out.println("score mots accoles : "+scoreMotAccolesTrouves);
         System.out.println(mot.getMot()+" - score total : "+scoreTotal);
         System.out.println();
         for(int j = 0; j<curseurMotsAccoles; j++) {

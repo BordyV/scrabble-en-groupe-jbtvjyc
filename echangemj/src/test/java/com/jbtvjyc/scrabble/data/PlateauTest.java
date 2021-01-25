@@ -136,8 +136,9 @@ public class PlateauTest {
         Assertions.assertEquals(51, scoreMot3);
 
         plateau = new Plateau();
-        motAPoserHor2 = new MotPositionne("chien", 2, 5);
-        int scoreMot4 = plateau.poserMot(motAPoserHor2);
+
+        int scoreMot5 = plateau.poserMot(motAPoserVer);
+        Assertions.assertEquals(80, scoreMot5);
 
     }
 
