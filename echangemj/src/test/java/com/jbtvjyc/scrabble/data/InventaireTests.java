@@ -12,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class InventaireTests {
 
     Inventaire invTest;
+    Statistique stats;
 
     @BeforeEach
     void setUp(){
-        this.invTest = new Inventaire();
+        this.invTest = new Inventaire(stats);
     }
     @AfterEach
     void tearDown(){}

@@ -17,15 +17,18 @@ public class Moteur implements Runnable {
     Thread partie;
 
     EtatDuJeu etatDuJeu;
+    StatistiqueGlobale statsGlobal;
     Mots lesMotsPossibles;
+    int nbPartie;
     private boolean exitOnFinish = false;
 
     public void lancerPartie() {
         if (this.partie == null) {
             System.out.println("Moteur > la partie est démarrée");
-            this.etatDuJeu = new EtatDuJeu();
             this.partie = new Thread(this);
             this.partie.start();
+            this.nbPartie =5;
+            this.statsGlobal = new StatistiqueGlobale(nbPartie);
             this.lesMotsPossibles = new Mots();
         } else {
             System.out.println("Moteur > la partie est déjà démarrée");
@@ -34,30 +37,39 @@ public class Moteur implements Runnable {
 
     @Override
     public void run() {
-        for(int nbTour = 0; nbTour < 100; nbTour++) {
-            if(nbTour ==0 ) {
-                this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
-                this.etatDuJeu.piocherLettre();
-            }
-            MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
-            if(motJoue != null)
-                this.verification = new Verification(this.etatDuJeu.getInventaire().getLettres(), motJoue,this.etatDuJeu.getPlateau(), this.lesMotsPossibles);
+        for(int partie =0; partie<this.nbPartie;partie++) {
+            this.etatDuJeu = new EtatDuJeu();
+            for (int nbTour = 0; nbTour < 100; nbTour++) {
+                if (nbTour == 0) {
+                    this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
+                    this.etatDuJeu.piocherLettre();
+                }
+                MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
+                if (motJoue != null)
+                    this.verification = new Verification(this.etatDuJeu.getInventaire().getLettres(), motJoue, this.etatDuJeu.getPlateau(), this.lesMotsPossibles);
 
-            //si la verification du mot marche
-            if(motJoue != null && this.verification.verifMot()) {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue);
-                this.etatDuJeu.addMotPlace(motJoue);
-            } else if (motJoue != null) {
-                //TODO DEMANDER S'IL VEUT CHANGER SES LETTRES OU RETENTER QUELQUE CHOSE
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas pu jouer car son mot n'est pas posable ou possible");
-            } else {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas trouver de mot et pioche ");
-                //TODO DEMANDER AU JOUEUR QUELLES LETTRES IL DOIT CHANGER
-                this.etatDuJeu.changerLettres();
+                //si la verification du mot marche
+                if (motJoue != null && this.verification.verifMot()) {
+                    System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue);
+                    this.etatDuJeu.addMotPlace(motJoue);
+                    this.etatDuJeu.inventaire.stats.ajoutMotPlacer();
+                    this.etatDuJeu.inventaire.stats.tailleMotPlusLong(motJoue);
+                    this.etatDuJeu.inventaire.stats.tailleMotPlusCourt(motJoue);
+                    this.etatDuJeu.inventaire.stats.tailleMoyenneMot(motJoue);
+                } else if (motJoue != null) {
+                    //TODO DEMANDER S'IL VEUT CHANGER SES LETTRES OU RETENTER QUELQUE CHOSE
+                    System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas pu jouer car son mot n'est pas posable ou possible");
+                } else {
+                    System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas trouver de mot et pioche ");
+                    //TODO DEMANDER AU JOUEUR QUELLES LETTRES IL DOIT CHANGER
+                    this.etatDuJeu.changerLettres();
+                }
             }
+            System.out.println(this.etatDuJeu.getPlateau());
+            this.statsGlobal.setStats(this.etatDuJeu.inventaire.stats);
         }
-        System.out.println(this.etatDuJeu.getPlateau());
-        System.out.println("Moteur > la partie est finie "+ this.etatDuJeu);
+        System.out.println("Moteur > Les partie sont finies ");
+        System.out.println(statsGlobal.toString());
         this.partie = null;
 
         this.ctrl.envoyerFin();

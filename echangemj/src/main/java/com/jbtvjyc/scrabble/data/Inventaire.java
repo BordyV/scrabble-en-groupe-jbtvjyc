@@ -3,12 +3,20 @@ package com.jbtvjyc.scrabble.data;
 import java.util.*;
 
 public class Inventaire {
+    Statistique stats;
     List<Character> lettres;
     int score;
 
     public Inventaire(){
         this.lettres = new ArrayList<>();
         this.score = 0;
+        this.stats = new Statistique(1);
+    }
+
+    public Inventaire(Statistique stats){
+        this.lettres = new ArrayList<>();
+        this.score = 0;
+        this.stats = stats;
     }
 
     public List<Character> getLettres() {

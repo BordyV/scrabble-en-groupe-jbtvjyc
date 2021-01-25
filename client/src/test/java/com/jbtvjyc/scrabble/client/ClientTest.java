@@ -13,10 +13,11 @@ class ClientTest {
     EtatDuJeu etatDuJeu;
     Mots mots;
     Client client;
+    Statistique stats;
 
     @BeforeEach
     void setup() {
-        this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire(), new Pioche());
+        this.etatDuJeu = new EtatDuJeu(new Plateau(), new Inventaire(stats), new Pioche());
         this.mots = new Mots();
         this.client = new Client();
     }

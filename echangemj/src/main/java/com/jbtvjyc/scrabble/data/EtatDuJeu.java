@@ -8,11 +8,13 @@ public class EtatDuJeu {
     Plateau plateau;
     Inventaire inventaire;
     Pioche pioche;
+    Statistique stats;
 
     public EtatDuJeu() {
         this.listeDeMots = new ArrayList<>();
         this.plateau = new Plateau();
-        this.inventaire = new Inventaire();
+        this.stats = new Statistique(1);
+        this.inventaire = new Inventaire(stats);
         this.pioche = new Pioche();
     }
 
