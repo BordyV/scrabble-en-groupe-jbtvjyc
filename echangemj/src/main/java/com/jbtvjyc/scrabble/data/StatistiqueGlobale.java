@@ -69,15 +69,7 @@ public class StatistiqueGlobale {
                 res += "\tTaille du mot le plus long: " + calculeTailleMotPlusLong(i) + "\n";
                 res += "\tTaille du mot le plus court: " + calculeTailleMotPlusCourt(i) + "\n";
                 res += "\tTaille moyenne des mots: " + calculeTailleMoyenneMot(i)/calculeMotPlacerTotal(i) + "\n";
-
-                /*res += "\tNombre total de points de gloire obtenue: " + calculePointDeGloireTotal(i) + " (" + calculePointDeGloireTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total de dés lancé: " + calculeDeLancerTotal(i) + " (" + calculeDeLancerTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total de cartes acheté: " + calculeCarteAcheterTotal(i) + " (" + calculeCarteAcheterTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total de faces forgé: " + calculeFaceForgerTotal(i) + " (" + calculeFaceForgerTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total d'or recolté: " + calculeOrTotal(i) + " (" + calculeOrTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total de fragments lunaires recolté: " + calculeFragmentLunaireTotal(i) + " (" + calculeFragmentLunaireTotal(i)/this.nbPartie +"/partie)" + "\n";
-                res += "\tNombre total de fragments solaires recolté: " + calculeFragmentSolaireTotal(i) + " (" + calculeFragmentSolaireTotal(i)/this.nbPartie +"/partie)" + "\n";
-            */
+                
             }
             return res;
         }
