@@ -18,6 +18,10 @@ public class MoteurWebControlleurTests {
     void testGetNomJoueur() {
         MoteurWebControlleur moteurWebControlleur = new MoteurWebControlleur();
         String resultat = "[NULL]";
-        assertEquals(moteurWebControlleur.getNomJoueur(), resultat);
+        assertEquals(moteurWebControlleur.getNomJoueur(0), resultat);
+        assertEquals(moteurWebControlleur.getNomJoueur(1), resultat);
+        assertEquals(moteurWebControlleur.getNomJoueur(2), resultat);
+        assertEquals(moteurWebControlleur.getNomJoueur(3), resultat);
+        assertEquals(moteurWebControlleur.getNomJoueur(621), resultat);
     }
 }

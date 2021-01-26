@@ -17,11 +17,17 @@ script:
   - mvn test
   # - docker rm $(docker ps -a -q)
   - docker build client -t jbtvjyc:client
+  - docker build server -t jbtvjyc:server
   - cd server
-  - docker run -d --name client_test -p 8081:8081 jbtvjyc:client
+  - docker run -d --name client_test -p 8081:8081 -e PORT=8081 -e NOM="Mopolo le Roi des Mots" jbtvjyc:client
+  - docker run -d --name client_test2 -p 8082:8082 -e PORT=8082 -e NOM="Menez la Falaise" jbtvjyc:client
+  - docker run -d --name client_test3 -p 8083:8083 -e PORT=8083 -e NOM="Renevier le Pionnier" jbtvjyc:client
+  - docker run -d --name client_test4 -p 8084:8084 -e PORT=8084 -e NOM="Arnault le plus beau" jbtvjyc:client
   - mvn failsafe:integration-test -Dit.test=com.jbtvjyc.scrabble.data.MoteurWebControlleurITCase#demanderAuJoueurDeJouerTest
   - docker start client_test
+  - docker start client_test2
+  - docker start client_test3
+  - docker start client_test4
   - mvn failsafe:integration-test -Dit.test=com.jbtvjyc.scrabble.data.MoteurWebControlleurITCase#demanderAuJoueurDeJouerTest2foisDeSuite
-  - mvn exec:java &
-  - cd ../client
-  - mvn exec:java
+  - cd ..
+  - docker-compose up
