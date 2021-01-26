@@ -44,7 +44,7 @@ public class MoteurWebControlleurITCase {
         noms[2] = "Renevier le Pionnier";
         noms[3] = "Arnault le plus beau";
         for (int i=0; i < this.ids.length; i++) {
-            this.ids[i] = new Identification(noms[i], "http://127.0.0.1:808"+(i+1)+"/");
+            this.ids[i] = new Identification(noms[i], "http://localhost:808"+(i+1)+"/");
         }
         this.etat = new EtatDuJeu();
 
