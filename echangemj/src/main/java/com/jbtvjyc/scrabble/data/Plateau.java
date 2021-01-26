@@ -144,7 +144,10 @@ public class Plateau {
      * Permet de connaitre le score d'un char donné
      */
     public int getScoreCase(Case laCase) {
-        return score[Character.toLowerCase(laCase.getValeur()) - 'a'];
+        if (laCase.getValeur() > 96)
+            return score[Character.toLowerCase(laCase.getValeur()) - 'a'];
+
+        return 0;
     }
 
     public Case[][] getLePlateau() {

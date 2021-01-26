@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class MoteurWebControlleur {
     int value = 0;
-
-    private Identification joueurId;
+    private Identification[] joueurIds = new Identification[4];
+    private int nbJoueurs = 0;
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -29,32 +29,48 @@ public class MoteurWebControlleur {
 
     @PostMapping("/connexion/")
     public boolean getValue(@RequestBody Identification joueurId) {
-        System.out.println("Moteur > connexion acceptée de " + joueurId.getNom());
-        this.joueurId = joueurId;
-        this.moteur.lancerPartie();
+        if (nbJoueurs < 4) {
+            System.out.println("Moteur > connexion acceptée de " + joueurId.getNom());
+            joueurIds[nbJoueurs] = joueurId;
+            nbJoueurs++;
 
-        return true;
+            if (nbJoueurs == 4) {
+                this.moteur.lancerPartie();
+            }
+
+            return true;
+        } else {
+            System.out.println("Moteur > connexion refusée de " + joueurId.getNom());
+
+            return false;
+        }
+
+
     }
 
-    public MotPositionne demanderAuJoueurDeJouer(EtatDuJeu p) {
+    public MotPositionne demanderAuJoueurDeJouer(EtatDuJeu p, int joueur) {
         MotPositionne resultat = new MotPositionne();
-        if (this.joueurId != null) {
-            resultat = this.restTemplate.postForObject(this.joueurId.getUrl() + "/jouer", p, MotPositionne.class);
+        if (this.joueurIds.length > joueur && this.joueurIds[joueur] != null) {
+            resultat = this.restTemplate.postForObject(this.joueurIds[joueur].getUrl() + "/jouer", p, MotPositionne.class);
         }
 
         return resultat;
     }
 
-    public String getNomJoueur() {
+    public String getNomJoueur(int joueur) {
         String resultat = "[NULL]";
-        if (this.joueurId != null) {
-            resultat = this.joueurId.getNom();
+        if (this.joueurIds.length > joueur && this.joueurIds[joueur] != null) {
+            resultat = this.joueurIds[joueur].getNom();
         }
 
         return resultat;
     }
 
     public void envoyerFin() {
-        this.restTemplate.exchange(this.joueurId.getUrl() + "/finir", HttpMethod.POST, null, Void.class);
+        for (Identification joueurId : this.joueurIds) {
+            if (joueurId != null) {
+                this.restTemplate.exchange(joueurId.getUrl() + "/finir", HttpMethod.POST, null, Void.class);
+            }
+        }
     }
 }
