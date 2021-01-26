@@ -92,14 +92,14 @@ public class Plateau {
         this.lePlateau = plateau;
     }
 
-    public void poserMot(MotPositionne motAPoser)
+    public int poserMot(MotPositionne motAPoser)
     {
         //si le mot est horizontal
         if(motAPoser.getHorizontal()) {
             for(int i = 0; i < motAPoser.getMot().length(); i++)
             {
                 char lettre = motAPoser.getMot().toCharArray()[i];
-                this.setValeurCasePlateau(lettre,motAPoser.getOrdonnee(),motAPoser.getAbscisse()+i);
+                this.setValeurCasePlateau(lettre, motAPoser.getOrdonnee(), motAPoser.getAbscisse()+i);
             }
         }
         //si le mot est vertical
@@ -110,6 +110,7 @@ public class Plateau {
                 this.setValeurCasePlateau(lettre,motAPoser.getOrdonnee()+i, motAPoser.getAbscisse());
             }
         }
+        return this.getScoreMot(motAPoser);
     }
 
     public Case getCase(int y, int x) {
@@ -134,9 +135,10 @@ public class Plateau {
     }
 
     /**
-     * Permet de connaitre le score d'un char donné
+     * Permet de connaitre le score d'une case donnée
      */
-    public int getScoreCaseXY(int x ,int y) {
+    public int getScoreCaseXY(int x, int y) {
+        this.getCase(y, x).setCaseTrouve();
         return score[Character.toLowerCase(this.getCase(y, x).getValeur()) - 'a'];
     }
 
@@ -144,7 +146,153 @@ public class Plateau {
      * Permet de connaitre le score d'un char donné
      */
     public int getScoreCase(Case laCase) {
-        return score[Character.toLowerCase(laCase.getValeur()) - 'a'];
+        //System.out.println("valeur de la case : " + laCase.getValeur());
+        int bonusLettre = 1;
+        if(laCase.getBonusActif() || laCase.getCaseCommune()) {
+            if(laCase.getBonus()==Bonus.LETTREDOUBLE){
+                bonusLettre = 2;
+                System.out.println("bonusLettre "+bonusLettre);
+            }
+            else if(laCase.getBonus()==Bonus.LETTRETRIPLE){
+                bonusLettre = 3;
+                System.out.println("bonusLettre "+bonusLettre);
+            }
+        }
+        laCase.setCaseTrouve();
+        return score[Character.toLowerCase(laCase.getValeur()) - 'a'] * bonusLettre;
+    }
+
+    /**
+     * Permet de connaitre le score d'un mot donné
+     */
+    public int getScoreMot(MotPositionne mot) {
+        int nbDeLettresPlacees = 0;
+        int abscisse = mot.getAbscisse();
+        int ordonnee = mot.getOrdonnee();
+        boolean horizontal = mot.getHorizontal();
+        int scoreTmp = 0;
+        int bonusMot = 1;
+        int scoreMotAccolesTrouves=0;
+        char[] tableauDeChar = mot.getMot().toCharArray();
+        int curseurMotsAccoles = 0;
+        Case[] casesCommunesMotsAccoles = new Case[15];
+        MotPositionne[] motAccolesTrouves = new MotPositionne[15];
+        System.out.println("calcule du score du mot "+mot.getMot()+" "+mot.getAbscisse()+" "+mot.getOrdonnee());
+        for(int i = 0; i<tableauDeChar.length; i++){
+            Case caseTmp;
+            int abscisseTmp;
+            int ordonneeTmp;
+            boolean motTrouve = false;
+            String motTmp = "";
+            //si le mot est horizontal
+            if(horizontal){
+                abscisseTmp = abscisse+i;
+                ordonneeTmp = ordonnee;
+                caseTmp = this.lePlateau[ordonneeTmp][abscisseTmp];
+                if(caseTmp.getCasePasTrouve() && ordonneeTmp>=0 && ordonneeTmp<=14 && this.lePlateau[ordonneeTmp][abscisseTmp].getCasePasTrouve()){
+                    casesCommunesMotsAccoles[curseurMotsAccoles]=this.lePlateau[ordonneeTmp][abscisseTmp];
+                    int ordonneeDebutMot = ordonneeTmp;
+                    if(ordonneeTmp>0 && this.lePlateau[ordonneeTmp-1][abscisseTmp].getValeur()!=Character.MIN_VALUE){
+                        int j = 0;
+                        while (ordonneeTmp-j>=0 && this.lePlateau[ordonneeTmp-j][abscisseTmp].getValeur()!=Character.MIN_VALUE) {
+                            char valeurTmp = this.lePlateau[ordonneeTmp-j][abscisseTmp].getValeur();
+                            motTmp = valeurTmp+motTmp;
+                            ordonneeDebutMot=ordonneeTmp-j;
+                            j++;
+                        }
+                        motTrouve = true;
+                    }
+                    if(ordonneeTmp<14 && this.lePlateau[ordonneeTmp+1][abscisseTmp].getValeur()!=Character.MIN_VALUE){
+                        int j = 0;
+                        while (ordonneeTmp+j<=14 && this.lePlateau[ordonneeTmp+j][abscisseTmp].getValeur()!=Character.MIN_VALUE) {
+                            char valeurTmp = this.lePlateau[ordonneeTmp+j][abscisseTmp].getValeur();
+                            motTmp = motTmp+valeurTmp;
+                            //ordonneeDebutMot=ordonneeTmp+j;
+                            j++;
+                        }
+                        motTrouve = true;
+                    }
+                    if (motTrouve) {
+                        motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseTmp,  ordonneeDebutMot, false);
+                        //System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
+                        this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
+                        caseTmp.setCaseCommune(true);
+                        curseurMotsAccoles++;
+                    }
+                }
+            }
+            //si le mot est vertical
+            else {
+                abscisseTmp = abscisse;
+                ordonneeTmp = ordonnee+i;
+                caseTmp = this.lePlateau[ordonneeTmp][abscisseTmp];
+                if(caseTmp.getCasePasTrouve() && abscisseTmp>=0 && abscisseTmp<=14 && this.lePlateau[ordonneeTmp][abscisseTmp].getCasePasTrouve()){
+                    casesCommunesMotsAccoles[curseurMotsAccoles]=this.lePlateau[ordonneeTmp][abscisseTmp];
+                    int abscisseDebutMot = abscisseTmp;
+                    if(abscisseTmp>0 && this.lePlateau[ordonneeTmp][abscisseTmp-1].getValeur()!=Character.MIN_VALUE){
+                        int j = 0;
+                        while (abscisseTmp-j>=0 && this.lePlateau[ordonneeTmp][abscisseTmp-j].getValeur()!=Character.MIN_VALUE) {
+                            char valeurTmp = this.lePlateau[ordonneeTmp][abscisseTmp-j].getValeur();
+                            motTmp = valeurTmp+motTmp;
+                            abscisseDebutMot=abscisseTmp-j;
+                            j++;
+                        }
+                        motTrouve = true;
+                    }
+                    if(abscisseTmp<14 && this.lePlateau[ordonneeTmp][abscisseTmp+1].getValeur()!=Character.MIN_VALUE){
+                        int j = 0;
+                        while (abscisseTmp+j<=14 && this.lePlateau[ordonneeTmp][abscisseTmp+j].getValeur()!=Character.MIN_VALUE) {
+                            char valeurTmp = this.lePlateau[ordonneeTmp][abscisseTmp+j].getValeur();
+                            motTmp = motTmp+valeurTmp;
+                            //abscisseDebutMot=abscisseTmp+j;
+                            j++;
+                        }
+                        motTrouve = true;
+                    }
+                    if (motTrouve) {
+                        motAccolesTrouves[curseurMotsAccoles] = new MotPositionne(motTmp, abscisseDebutMot,  ordonneeTmp, true);
+                        //System.out.println("un autre mot a ete trouve : " + motAccolesTrouves[curseurMotsAccoles].getMot() + " " + motAccolesTrouves[curseurMotsAccoles].getAbscisse()  + " " + motAccolesTrouves[curseurMotsAccoles].getOrdonnee());
+                        this.lePlateau[ordonneeTmp][abscisseTmp].setCaseTrouve();
+                        caseTmp.setCaseCommune(true);
+                        curseurMotsAccoles++;
+                    }
+                }
+            }
+            for(int j = 0; j<curseurMotsAccoles; j++) {
+                System.out.println(j);
+                scoreMotAccolesTrouves+=getScoreMot(motAccolesTrouves[j]);
+            }
+            scoreTmp += getScoreCase(caseTmp);
+            if(caseTmp.getBonusActif() || caseTmp.getCaseCommune()){
+                if(caseTmp.getBonusActif() || caseTmp.getCaseCommune()) {
+                    if(caseTmp.getBonus()==Bonus.MOTDOUBLE){
+                        bonusMot *= 2;
+                    }
+                    if(caseTmp.getBonus()==Bonus.MOTTRIPLE){
+                        bonusMot *= 3;
+                    }
+                }
+            }
+            if (caseTmp.getBonusActif()) {
+                nbDeLettresPlacees++;
+            }
+            caseTmp.setBonusPlusActif();
+            curseurMotsAccoles = 0;
+            casesCommunesMotsAccoles = new Case[15];
+            motAccolesTrouves = new MotPositionne[15];
+        }
+        int scoreTotal=scoreMotAccolesTrouves+scoreTmp*bonusMot;
+        //System.out.println("nombre de nouvelles lettres placees : "+nbDeLettresPlacees);
+        if (nbDeLettresPlacees == 7) {
+            scoreTotal += 50;
+        }
+        //System.out.println("score mots accoles : "+scoreMotAccolesTrouves);
+        System.out.println(mot.getMot()+" - score total : "+scoreTotal);
+        System.out.println();
+        for(int j = 0; j<curseurMotsAccoles; j++) {
+            casesCommunesMotsAccoles[j].setCaseCommune(false);
+        }
+        return scoreTotal;
     }
 
     public Case[][] getLePlateau() {
