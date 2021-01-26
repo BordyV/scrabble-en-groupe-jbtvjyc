@@ -1,6 +1,6 @@
 # Livraison 4
 
-Lors de cette dernière itération de notre projet, nous avons décidé de nous concentrer sur le multijoueur, les statistiques et l'améliorer de certaines fonctionnalités.
+Lors de cette dernière itération de notre projet, nous avons décidé de nous concentrer sur le multijoueur, les statistiques et l'amélioration de certaines fonctionnalités.
 Le compte des points prévu pour l'itération 3 a pu être réalisé.
 
 Pour cette itération nous avons donc décidé de faire dans les grandes lignes:
