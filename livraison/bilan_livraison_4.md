@@ -18,4 +18,4 @@ ce qui manque pour l'iteration:
 - les statistiques, elles ont étés faites, dans les temps mais ayant sous-estimé le multijoueur nous n'avons pas pu l'implementer totalement. 
 -le joker
 
-En conclusion, cette itération se finalise bien malgré la sous-estimation de la charge de travail pour la tache "multijoueur"  
+En conclusion, cette itération se finalise bien malgré la sous-estimation de la charge de travail pour la tache "multijoueur" et "joker".  
