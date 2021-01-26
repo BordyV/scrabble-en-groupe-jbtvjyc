@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @Scope("singleton")
@@ -18,6 +17,7 @@ public class Moteur implements Runnable {
 
     EtatDuJeu etatDuJeu;
     Mots lesMotsPossibles;
+    private int currentPlayer;
     private boolean exitOnFinish = false;
 
     public void lancerPartie() {
@@ -25,8 +25,9 @@ public class Moteur implements Runnable {
             System.out.println("Moteur > la partie est démarrée");
             this.etatDuJeu = new EtatDuJeu();
             this.partie = new Thread(this);
-            this.partie.start();
             this.lesMotsPossibles = new Mots();
+            this.currentPlayer = 0;
+            this.partie.start();
         } else {
             System.out.println("Moteur > la partie est déjà démarrée");
         }
@@ -34,30 +35,47 @@ public class Moteur implements Runnable {
 
     @Override
     public void run() {
-        for(int nbTour = 0; nbTour < 100; nbTour++) {
-            if(nbTour ==0 ) {
-                this.etatDuJeu.getInventaire().setLettres(new ArrayList<>());
-                this.etatDuJeu.piocherLettre();
-            }
-            MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu());
+        for(Inventaire inv: this.etatDuJeu.getInventaires()) {
+            inv.setLettres(new ArrayList<>());
+            this.etatDuJeu.piocherLettre();
+            this.etatDuJeu.currJoueur++;
+        }
+
+        for(int nbTour = 0; nbTour < 500; nbTour++) {
+            this.currentPlayer = (this.currentPlayer + 1) % 4;
+            this.etatDuJeu.currJoueur = this.currentPlayer;
+            MotPositionne motJoue = this.ctrl.demanderAuJoueurDeJouer(this.getEtatDuJeu(), this.currentPlayer);
             if(motJoue != null)
                 this.verification = new Verification(this.etatDuJeu.getInventaire().getLettres(), motJoue,this.etatDuJeu.getPlateau(), this.lesMotsPossibles);
 
             //si la verification du mot marche
             if(motJoue != null && this.verification.verifMot()) {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " a joué : " + motJoue);
+                System.out.println("Moteur > " + this.ctrl.getNomJoueur(this.currentPlayer) + " a joué : " + motJoue);
                 this.etatDuJeu.addMotPlace(motJoue);
             } else if (motJoue != null) {
                 //TODO DEMANDER S'IL VEUT CHANGER SES LETTRES OU RETENTER QUELQUE CHOSE
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas pu jouer car son mot n'est pas posable ou possible");
+                System.out.println("Moteur > " + this.ctrl.getNomJoueur(this.currentPlayer) + " n'a pas pu jouer car son mot n'est pas posable ou possible");
             } else {
-                System.out.println("Moteur > " + this.ctrl.getNomJoueur() + " n'a pas trouver de mot et pioche ");
+                System.out.println("Moteur > " + this.ctrl.getNomJoueur(this.currentPlayer) + " n'a pas trouver de mot et pioche ");
                 //TODO DEMANDER AU JOUEUR QUELLES LETTRES IL DOIT CHANGER
                 this.etatDuJeu.changerLettres();
             }
         }
         System.out.println(this.etatDuJeu.getPlateau());
         System.out.println("Moteur > la partie est finie "+ this.etatDuJeu);
+
+        int gagnant = 0;
+        int bestScore = 0;
+        for (int i=0; i < this.etatDuJeu.getInventaires().length; i++) {
+            System.out.println("Score de " + this.ctrl.getNomJoueur(i) + ": " + this.etatDuJeu.getInventaires()[i].getScore() + " points.");
+            if (bestScore < this.etatDuJeu.getInventaires()[i].getScore()) {
+                gagnant = i;
+                bestScore = this.etatDuJeu.getInventaires()[i].getScore();
+            }
+        }
+
+        System.out.println(this.ctrl.getNomJoueur(gagnant) + " gagne la partie avec un score de " + bestScore + " points.");
+
         this.partie = null;
 
         this.ctrl.envoyerFin();

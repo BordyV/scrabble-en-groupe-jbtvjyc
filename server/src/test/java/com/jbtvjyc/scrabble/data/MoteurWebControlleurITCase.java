@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.verify;
 public class MoteurWebControlleurITCase {
 
     // data
-    Identification id ;
+    Identification[] ids = new Identification[4] ;
     EtatDuJeu etat;
 
     @SpyBean
@@ -37,11 +38,18 @@ public class MoteurWebControlleurITCase {
 
     @BeforeEach
     void setUp()throws Exception {
-        id = new Identification("Joueur pour intégration", "http://127.0.0.1:8081/");
-        etat = new EtatDuJeu();
+        String[] noms = new String[4];
+        noms[0] = "Mopolo le Roi des Mots";
+        noms[1] = "Menez la Falaise";
+        noms[2] = "Renevier le Pionnier";
+        noms[3] = "Arnault le plus beau";
+        for (int i=0; i < this.ids.length; i++) {
+            this.ids[i] = new Identification(noms[i], "http://localhost:808"+(i+1)+"/");
+        }
+        this.etat = new EtatDuJeu();
 
-        mSpy = Mockito.spy(moteur);
-        ReflectionTestUtils.setField(webControlleur, "moteur", mSpy);
+        this.mSpy = Mockito.spy(this.moteur);
+        ReflectionTestUtils.setField(this.webControlleur, "moteur", this.mSpy);
     }
 
     @Test
@@ -49,30 +57,32 @@ public class MoteurWebControlleurITCase {
 
         // pour que le controlleur ait un joueur...
         // l'appel extérieur qui lance tout
-        webControlleur.getValue(id);
+        for (Identification id : this.ids) {
+            this.webControlleur.getValue(id);
+        }
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(9000);
+            TimeUnit.MILLISECONDS.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
 
-        verify(mSpy, times(1)).lancerPartie();
+        verify(this.mSpy, times(1)).lancerPartie();
 
-        verify(webControlleur, times(100)).demanderAuJoueurDeJouer(any());
-        verify(webControlleur, times(1)).envoyerFin();
+        verify(this.webControlleur, times(500)).demanderAuJoueurDeJouer(any(), anyInt());
+        verify(this.webControlleur, times(1)).envoyerFin();
 
         // TODO Il faudrait réussir à faire placer un certain nombre de mots sur le plateau pour le tester
         // EtatDuJeu plateau = mSpy.getEtatDuJeu();
         // assertEquals(2, plateau.getListeDeMots().size());
 
-        verify(mSpy, times(100)).getEtatDuJeu();
+        verify(this.mSpy, times(500)).getEtatDuJeu();
         // error to verify it is a good spy // verify(mSpy, times(16)).aMethod();
 
         // normalement, à la fin le client est éteint
-        assertThrows(org.springframework.web.client.ResourceAccessException.class, () -> mSpy.run());
+        assertThrows(org.springframework.web.client.ResourceAccessException.class, () -> this.mSpy.run());
 
         // etc.
 
@@ -85,32 +95,33 @@ public class MoteurWebControlleurITCase {
     @Test
     void demanderAuJoueurDeJouerTest2foisDeSuite() {
         // pour que le controlleur ait un joueur...
-
-        webControlleur.getValue(id);
-        webControlleur.getValue(id);
+        for(Identification id : this.ids) {
+            this.webControlleur.getValue(id);
+        }
+        this.webControlleur.getValue(ids[0]);
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(9000);
+            TimeUnit.MILLISECONDS.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
 
-        // 2 fois lancerPartie, mais une seule avec effet... comme c'est un sout, on ne peut pas vérfier la 2e fois si ce n'est que le reste ne change pas
-        verify(mSpy, times(2)).lancerPartie();
-        verify(webControlleur, times(100)).demanderAuJoueurDeJouer(any());
-        verify(webControlleur, times(1)).envoyerFin();
+        // 1 fois lancerPartie même avec 5 clients
+        verify(this.mSpy, times(1)).lancerPartie();
+        verify(this.webControlleur, times(500)).demanderAuJoueurDeJouer(any(), anyInt());
+        verify(this.webControlleur, times(1)).envoyerFin();
 
         // TODO Pareil que demanderAuJoueurDeJoueurTest
         // EtatDuJeu plateau = mSpy.getEtatDuJeu();
         // assertEquals(2, plateau.getListeDeMots().size());
 
-        verify(mSpy, times(100)).getEtatDuJeu();
+        verify(this.mSpy, times(500)).getEtatDuJeu();
         // error to verify it is a good spy // verify(mSpy, times(16)).aMethod();
 
         // normalement, à la fin le client est éteint
-        assertThrows(org.springframework.web.client.ResourceAccessException.class, () -> mSpy.run());
+        assertThrows(org.springframework.web.client.ResourceAccessException.class, () -> this.mSpy.run());
 
         // etc.
 

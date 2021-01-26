@@ -94,7 +94,7 @@ public class Pioche {
             Random random = new Random();
             index = random.nextInt(26);
             lettreTrouvee = alphabet[index];
-        } while (this.lettreVide(index));
+        } while (this.lettreVide(index) && this.sacVide == false);
         int newVal = this.sac.get(index)-1;
         this.sac.set(index, newVal);
         this.setTailleDuSac(this.getTailleDuSac()-1);

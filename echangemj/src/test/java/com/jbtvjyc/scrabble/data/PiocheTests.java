@@ -57,7 +57,7 @@ class PiocheTests {
         pioche.piocherUneLettre();
         Assertions.assertEquals(false, pioche.getSacVide());
         pioche = new Pioche();
-        for(int i = 0; i<100; i++){
+        for(int i = 0; i<110; i++){
             pioche.piocherUneLettre();
         }
         Assertions.assertEquals(true, pioche.getSacVide());

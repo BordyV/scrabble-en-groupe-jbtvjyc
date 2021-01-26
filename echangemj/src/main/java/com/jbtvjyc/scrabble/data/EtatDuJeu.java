@@ -6,26 +6,19 @@ import java.util.List;
 public class EtatDuJeu {
     List<MotPositionne> listeDeMots;
     Plateau plateau;
-    Inventaire inventaire;
+    Inventaire[] inventaires;
+    int currJoueur;
     Pioche pioche;
 
     public EtatDuJeu() {
         this.listeDeMots = new ArrayList<>();
         this.plateau = new Plateau();
-        this.inventaire = new Inventaire();
+        this.inventaires = new Inventaire[4];
+        for (int i=0; i < inventaires.length; i++) {
+            inventaires[i] = new Inventaire();
+        }
         this.pioche = new Pioche();
-    }
-
-    public EtatDuJeu(Plateau plateau, Inventaire inventaire, Pioche pioche) {
-        this.listeDeMots = new ArrayList<>();
-        this.plateau = plateau;
-        this.inventaire = inventaire;
-        this.pioche = pioche;
-    }
-
-    public EtatDuJeu(Plateau plateau) {
-        this.listeDeMots = new ArrayList<>();
-        this.plateau = plateau;
+        this.currJoueur = 0;
     }
 
     public List<MotPositionne> getListeDeMots() {
@@ -37,7 +30,7 @@ public class EtatDuJeu {
     }
 
     public void piocherLettre() {
-        int nbLettreAPiocher = (7 - this.inventaire.getLettres().toArray().length);
+        int nbLettreAPiocher = (7 - this.inventaires[this.currJoueur].getLettres().toArray().length);
         this.pioche.piocherPlusieursLettres(this, nbLettreAPiocher);
     }
 
@@ -45,8 +38,8 @@ public class EtatDuJeu {
     public void changerLettres() {
         //TODO AJOUTER UN CONTROLE SUPPLEMENTAIRE POUR VIDER TOTALEMENT LE SAC
         if(!this.pioche.getSacVide() && this.pioche.getTailleDuSac() > 7) {
-            this.pioche.rendrePlusieursLettres(this.inventaire.getLettres());
-            this.inventaire.enleverLettres(this.inventaire.getLettres());
+            this.pioche.rendrePlusieursLettres(this.inventaires[this.currJoueur].getLettres());
+            this.inventaires[this.currJoueur].enleverLettres(this.inventaires[this.currJoueur].getLettres());
             this.piocherLettre();
         }
         System.out.println("Le joueur change ses lettres, voici ses lettres " + this.getInventaire().getLettres());
@@ -74,7 +67,7 @@ public class EtatDuJeu {
             }
         }
 
-        this.inventaire.enleverLettres(removeLetters);
+        this.inventaires[this.currJoueur].enleverLettres(removeLetters);
     }
 
     public Plateau getPlateau() {
@@ -82,19 +75,11 @@ public class EtatDuJeu {
     }
 
     public Inventaire getInventaire() {
-        return inventaire;
-    }
-
-    public void setPlateau(Plateau plateau) {
-        this.plateau = plateau;
-    }
-
-    public void setInventaire(Inventaire inventaire) {
-        this.inventaire = inventaire;
+        return inventaires[this.currJoueur];
     }
 
     public String toString() {
-        return "[Plateau](contient " + this.listeDeMots.size() + " mot(s), et les lettres sont " + this.getInventaire().getLettres() + ")";
+        return "[Plateau](contient " + this.listeDeMots.size() + " mots)";
     }
 
     public void addMotPlace(MotPositionne motJoue) {
@@ -102,6 +87,11 @@ public class EtatDuJeu {
         this.enleverLettres(motJoue);
         this.piocherLettre();
         System.out.println("Le joueur pioche, voici ses lettres " + this.getInventaire().getLettres());
-        this.getPlateau().poserMot(motJoue);
+        int score = this.getPlateau().poserMot(motJoue);
+        this.getInventaire().addScore(score);
+    }
+
+    public Inventaire[] getInventaires() {
+        return this.inventaires;
     }
 }
