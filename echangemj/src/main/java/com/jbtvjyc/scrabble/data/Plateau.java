@@ -139,7 +139,10 @@ public class Plateau {
      */
     public int getScoreCaseXY(int x, int y) {
         this.getCase(y, x).setCaseTrouve();
-        return score[Character.toLowerCase(this.getCase(y, x).getValeur()) - 'a'];
+        if (Character.toLowerCase(this.getCase(y, x).getValeur()) > 96)
+            return score[Character.toLowerCase(this.getCase(y, x).getValeur()) - 'a'];
+
+        return 0;
     }
 
     /**
@@ -159,7 +162,10 @@ public class Plateau {
             }
         }
         laCase.setCaseTrouve();
-        return score[Character.toLowerCase(laCase.getValeur()) - 'a'] * bonusLettre;
+        if (Character.toLowerCase(laCase.getValeur()) > 96)
+            return score[Character.toLowerCase(laCase.getValeur()) - 'a'] * bonusLettre;
+
+        return 0;
     }
 
     /**
