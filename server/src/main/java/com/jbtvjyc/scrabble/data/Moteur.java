@@ -63,6 +63,19 @@ public class Moteur implements Runnable {
         }
         System.out.println(this.etatDuJeu.getPlateau());
         System.out.println("Moteur > la partie est finie "+ this.etatDuJeu);
+
+        int gagnant = 0;
+        int bestScore = 0;
+        for (int i=0; i < this.etatDuJeu.getInventaires().length; i++) {
+            System.out.println("Score de " + this.ctrl.getNomJoueur(i) + ": " + this.etatDuJeu.getInventaires()[i].getScore() + " points.");
+            if (bestScore < this.etatDuJeu.getInventaires()[i].getScore()) {
+                gagnant = i;
+                bestScore = this.etatDuJeu.getInventaires()[i].getScore();
+            }
+        }
+
+        System.out.println(this.ctrl.getNomJoueur(gagnant) + " gagne la partie avec un score de " + bestScore + " points.");
+
         this.partie = null;
 
         this.ctrl.envoyerFin();

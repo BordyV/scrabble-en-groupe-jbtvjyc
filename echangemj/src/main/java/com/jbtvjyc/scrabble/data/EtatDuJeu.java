@@ -79,7 +79,7 @@ public class EtatDuJeu {
     }
 
     public String toString() {
-        return "[Plateau](contient " + this.listeDeMots.size() + " mot(s), et les lettres sont " + this.getInventaire().getLettres() + ")";
+        return "[Plateau](contient " + this.listeDeMots.size() + " mots)";
     }
 
     public void addMotPlace(MotPositionne motJoue) {
@@ -87,7 +87,8 @@ public class EtatDuJeu {
         this.enleverLettres(motJoue);
         this.piocherLettre();
         System.out.println("Le joueur pioche, voici ses lettres " + this.getInventaire().getLettres());
-        this.getPlateau().poserMot(motJoue);
+        int score = this.getPlateau().poserMot(motJoue);
+        this.getInventaire().addScore(score);
     }
 
     public Inventaire[] getInventaires() {
