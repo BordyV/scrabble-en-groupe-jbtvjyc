@@ -63,7 +63,7 @@ public class MoteurWebControlleurITCase {
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(20000);
+            TimeUnit.MILLISECONDS.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -102,7 +102,7 @@ public class MoteurWebControlleurITCase {
 
         // some code are in a thread...
         try {
-            TimeUnit.MILLISECONDS.sleep(20000);
+            TimeUnit.MILLISECONDS.sleep(30000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

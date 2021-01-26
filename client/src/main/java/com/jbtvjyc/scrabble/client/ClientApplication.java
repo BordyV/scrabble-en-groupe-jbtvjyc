@@ -27,7 +27,7 @@ public class ClientApplication implements WebServerFactoryCustomizer<Configurabl
             ClientApplication.nom = args[1];
         }*/
 
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(10);
 
         if (System.getenv("PORT") != null) {
             ClientApplication.port = Integer.parseInt(System.getenv("PORT"));
