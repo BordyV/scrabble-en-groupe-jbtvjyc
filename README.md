@@ -1,5 +1,9 @@
 # SCRABBLE-EN-GROUPE-JBTVJYC
 [![Build Status](https://travis-ci.com/Master1-MIAGE-UCA/scrabble-en-groupe-jbtvjyc.svg?token=eGqKwyhvLzVL1jvG6VN6&branch=master)](https://travis-ci.com/Master1-MIAGE-UCA/scrabble-en-groupe-jbtvjyc)
+
+Le but de ce projet est de développer un scrabble java avec une IA et spring. 
+niveau scolaire: M1 Miage.
+
 ## Membres de la team
 
 - Jean-Baptiste LOGNON
